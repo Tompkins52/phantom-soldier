@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phantom Soldier: tear-off flyer</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<!--FONTS-->
+<style>
+  :root{--ink:#1A2027;--ink-2:#3B454D;--muted:#6B746F;--rule:#C9CCC5;--red:#9E1B32;--navy:#0F1E2D;--paper:#fff;
+    --sans:'IBM Plex Sans Condensed','Arial Narrow',Arial,sans-serif;--serif:'IBM Plex Serif',Georgia,serif}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:#DADBD6;color:var(--ink);font-family:var(--serif);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  h1,h2,h3{font-family:var(--sans);margin:0;line-height:1}
+  .wordmark{font-family:var(--sans);font-weight:700;letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:.08in;margin:0}
+  .wordmark svg{fill:var(--red)}
+  .toolbar{max-width:8.5in;margin:0 auto;padding:14px 16px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-family:var(--sans);font-size:16px}
+  .toolbar button{font:600 16px var(--sans);background:var(--red);color:#fff;border:0;border-radius:8px;padding:12px 20px;cursor:pointer}
+  .toolbar p{margin:0;color:var(--ink-2)}
+  .toolbar a{color:var(--red)}
+  @media print{body{background:#fff}.toolbar{display:none}.page{box-shadow:none;margin:0}}
+  @page{size:letter;margin:0}
+  .page{background:var(--paper);width:8.5in;height:11in;margin:0 auto 20px;padding:.45in .5in .3in;box-shadow:0 10px 30px -14px rgba(0,0,0,.5);position:relative;overflow:hidden}
+  .top{display:flex;justify-content:space-between;align-items:baseline}
+  .top .wordmark{font-size:13px}
+  .top .wordmark svg{width:13px;height:13px}
+  .top .url{font-family:var(--sans);font-weight:600;font-size:15px;margin:0;color:var(--ink-2)}
+  h1{font-size:56px;font-weight:700;margin:.18in 0 .12in;max-width:7.3in;letter-spacing:-.005em}
+  .sub{font-size:16.5px;line-height:1.45;color:var(--ink-2);max-width:6.8in;margin:0}
+  .art{display:block;width:100%;height:2.95in;object-fit:cover;object-position:center 58%;border-radius:8px;margin:.2in 0 0}
+  .row{display:grid;grid-template-columns:1.6in 1.6in 1fr;gap:.24in;align-items:center;margin:.22in 0 0}
+  .code{text-align:center}
+  .code svg{width:1.4in;height:1.4in;display:block;margin:0 auto .06in}
+  .code h3{font-size:14.5px;font-weight:600;line-height:1.1}
+  .code p{margin:2px 0 0;font-size:11.5px;color:var(--muted);line-height:1.3}
+  .how{font-size:14px;line-height:1.45;color:var(--ink-2);margin:0;padding-left:.2in;border-left:3px solid var(--red)}
+  .how strong{font-family:var(--sans);font-weight:600;color:var(--ink);font-size:15px;display:block;margin-bottom:3px}
+  .crisis{margin:.2in 0 0;font-size:12.5px;color:var(--ink-2);line-height:1.4}
+  .crisis strong{color:var(--ink)}
+  .tabs{position:absolute;left:.5in;right:.5in;bottom:.3in;display:grid;grid-template-columns:repeat(8,1fr);border-top:1.5px dashed var(--rule);height:1.55in}
+  .tab{border-right:1.5px dashed var(--rule);display:flex;align-items:center;justify-content:center}
+  .tab:last-child{border-right:0}
+  .tab div{writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;font-family:var(--sans);line-height:1.15;white-space:nowrap}
+  .tab b{display:block;font-weight:700;font-size:12.5px;letter-spacing:.01em}
+  .tab span{display:block;font-weight:500;font-size:9.5px;color:var(--muted)}
+
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button type="button" onclick="window.print()">Print</button>
+  <p>Letter size, one page. Cut the dashed lines at the bottom so people can tear off a tab. <a href="../print.html">Flyer and business cards</a> are on the other print page.</p>
+</div>
+<section class="page">
+  <div class="top">
+    <p class="wordmark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6l2.9 7.2 7.7.5-6 4.9 2 7.5-6.6-4.3-6.6 4.3 2-7.5-6-4.9 7.7-.5z"/></svg> Phantom Soldier</p>
+    <p class="url">phantomsoldier.org</p>
+  </div>
+  <h1>Every veteran has a story they don't tell.</h1>
+  <p class="sub">Send yours. It comes back as a song you approve word for word. It costs nothing, and everything the music earns goes to veteran suicide prevention. Any branch, any era, any job you held.</p>
+  <img class="art" src="../art/hero.jpg" width="1600" height="1120" alt="A handprint pressed into cracked concrete">
+  <div class="row">
+    <div class="code"><svg width="132" height="132" viewBox="0 0 132 132" class="segno"><path transform="scale(4)" class="qrline" stroke="#1a2027" d="M0 0.5h7m2 0h3m2 0h1m2 0h2m2 0h1m4 0h7m-33 1h1m5 0h1m1 0h4m1 0h2m1 0h1m4 0h1m2 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h4m5 0h3m1 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h2m6 0h2m1 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m3 0h1m2 0h1m1 0h1m2 0h1m1 0h3m3 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m3 0h4m2 0h3m1 0h2m4 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h2m2 0h1m1 0h1m4 0h1m2 0h3m-25 1h1m5 0h1m1 0h1m1 0h1m1 0h2m1 0h1m1 0h1m4 0h1m1 0h3m2 0h3m-32 1h1m2 0h2m3 0h1m5 0h2m2 0h3m2 0h2m3 0h4m-29 1h2m1 0h2m1 0h2m1 0h1m2 0h2m1 0h1m1 0h3m1 0h2m2 0h1m1 0h2m-32 1h2m1 0h1m1 0h1m5 0h2m1 0h1m3 0h1m4 0h1m1 0h7m-31 1h1m1 0h5m5 0h6m3 0h1m1 0h1m1 0h2m3 0h1m-32 1h1m1 0h2m1 0h1m1 0h2m3 0h1m1 0h1m1 0h5m1 0h2m2 0h2m2 0h3m-33 1h1m2 0h1m2 0h2m1 0h1m3 0h1m3 0h1m2 0h2m2 0h4m3 0h1m-32 1h1m2 0h3m2 0h1m1 0h1m1 0h4m3 0h2m1 0h4m3 0h2m1 0h1m-33 1h5m1 0h1m1 0h1m1 0h2m1 0h2m2 0h1m2 0h1m1 0h4m1 0h2m3 0h1m-33 1h3m1 0h2m2 0h1m1 0h1m4 0h7m1 0h1m2 0h1m2 0h4m-33 1h1m3 0h1m1 0h1m1 0h1m1 0h2m1 0h4m2 0h5m1 0h3m1 0h4m-33 1h1m1 0h1m1 0h1m3 0h2m1 0h2m2 0h1m1 0h4m1 0h1m2 0h2m1 0h3m-31 1h1m2 0h2m1 0h1m4 0h3m1 0h2m3 0h3m2 0h1m2 0h2m1 0h1m-32 1h2m5 0h1m1 0h2m2 0h2m1 0h4m1 0h2m2 0h1m1 0h2m-29 1h1m2 0h1m2 0h4m2 0h1m1 0h3m3 0h1m1 0h1m1 0h5m1 0h2m-32 1h1m1 0h2m3 0h1m1 0h4m6 0h2m1 0h1m1 0h3m2 0h3m-32 1h2m2 0h4m1 0h1m1 0h3m1 0h1m2 0h1m1 0h1m3 0h5m1 0h1m1 0h1m-25 1h2m4 0h3m1 0h3m1 0h1m1 0h1m3 0h1m1 0h3m-33 1h7m4 0h1m1 0h1m1 0h1m2 0h1m1 0h5m1 0h1m1 0h1m1 0h1m-31 1h1m5 0h1m2 0h2m1 0h1m7 0h1m1 0h3m3 0h4m-32 1h1m1 0h3m1 0h1m4 0h2m1 0h2m2 0h2m1 0h2m1 0h6m1 0h2m-33 1h1m1 0h3m1 0h1m3 0h2m4 0h2m1 0h2m1 0h1m1 0h2m1 0h6m-33 1h1m1 0h3m1 0h1m3 0h1m3 0h1m1 0h1m2 0h1m1 0h1m1 0h2m2 0h3m1 0h2m-33 1h1m5 0h1m2 0h1m2 0h5m2 0h2m2 0h1m1 0h1m1 0h4m-31 1h7m1 0h5m1 0h1m1 0h2m4 0h3m1 0h2m2 0h2"/></svg><h3>Hear Hard to Break</h3><p>The new single. Opens in Spotify.</p></div>
+    <div class="code"><svg width="116" height="116" viewBox="0 0 116 116" class="segno"><path transform="scale(4)" class="qrline" stroke="#1a2027" d="M0 0.5h7m1 0h3m1 0h4m2 0h1m1 0h1m1 0h7m-29 1h1m5 0h1m3 0h3m2 0h1m1 0h2m3 0h1m5 0h1m-29 1h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h1m3 0h2m1 0h1m1 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m2 0h2m4 0h1m1 0h2m1 0h1m1 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m4 0h1m3 0h2m1 0h1m3 0h1m1 0h3m1 0h1m-29 1h1m5 0h1m1 0h2m1 0h4m2 0h2m1 0h1m1 0h1m5 0h1m-29 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-20 1h1m2 0h2m4 0h1m1 0h1m-21 1h1m1 0h1m3 0h2m1 0h3m1 0h1m1 0h2m2 0h2m2 0h1m2 0h1m1 0h1m-27 1h4m1 0h5m6 0h6m3 0h2m-28 1h1m4 0h2m4 0h5m1 0h2m2 0h2m1 0h2m1 0h1m-29 1h2m1 0h3m1 0h1m3 0h2m1 0h1m1 0h1m6 0h3m-26 1h5m1 0h1m2 0h1m3 0h3m4 0h1m1 0h2m4 0h1m-29 1h3m1 0h2m1 0h1m1 0h8m2 0h2m1 0h2m3 0h2m-28 1h2m1 0h5m2 0h1m3 0h1m3 0h2m3 0h1m3 0h1m-28 1h2m1 0h1m3 0h2m3 0h1m4 0h1m1 0h3m-22 1h1m1 0h2m1 0h5m2 0h1m2 0h1m1 0h3m1 0h2m4 0h1m-28 1h2m1 0h1m2 0h1m2 0h1m1 0h1m2 0h3m1 0h2m1 0h2m2 0h3m-29 1h3m1 0h1m1 0h3m1 0h1m2 0h3m3 0h2m2 0h3m2 0h1m-27 1h1m1 0h2m1 0h1m2 0h2m2 0h1m1 0h1m1 0h1m1 0h2m2 0h1m-25 1h2m1 0h2m1 0h1m1 0h3m2 0h2m1 0h1m1 0h1m1 0h6m1 0h1m-20 1h1m1 0h7m3 0h1m3 0h3m1 0h1m-29 1h7m1 0h1m1 0h1m4 0h2m1 0h1m1 0h1m1 0h1m1 0h1m3 0h1m-29 1h1m5 0h1m2 0h1m3 0h1m1 0h1m2 0h3m3 0h1m3 0h1m-29 1h1m1 0h3m1 0h1m3 0h2m1 0h1m1 0h2m2 0h7m1 0h2m-29 1h1m1 0h3m1 0h1m2 0h1m5 0h2m1 0h4m2 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h4m1 0h1m1 0h1m2 0h1m5 0h1m2 0h2m-29 1h1m5 0h1m5 0h1m3 0h1m1 0h1m1 0h1m4 0h1m-26 1h7m1 0h3m2 0h1m1 0h1m4 0h1m2 0h2m3 0h1"/></svg><h3>Send your story</h3><p>Opens the form on phantomsoldier.org.</p></div>
+    <p class="how"><strong>How it works</strong>You write a paragraph. A real person writes back. You read every line of the lyrics before anything is recorded. Then you decide: keep the song private, or release it under Phantom Soldier. Your name is never on it. Not every story becomes a song, and that's about pace, not quality.</p>
+  </div>
+  <p class="crisis"><strong>Veterans Crisis Line: dial 988, then press 1.</strong> Text 838255. Free, confidential, 24/7, for veterans, service members, and their families.</p>
+  <div class="tabs"><div class="tab"><div><b>phantomsoldier.org</b><span>Veteran stories, told as songs</span></div></div><div class="tab"><div><b>phantomsoldier.org</b><span>Veteran stories, told as songs</span></div></div><div class="tab"><div><b>phantomsoldier.org</b><span>Veteran stories, told as songs</span></div></div><div class="tab"><div><b>phantomsoldier.org</b><span>Veteran stories, told as songs</span></div></div><div class="tab"><div><b>phantomsoldier.org</b><span>Veteran stories, told as songs</span></div></div><div class="tab"><div><b>phantomsoldier.org</b><span>Veteran stories, told as songs</span></div></div><div class="tab"><div><b>phantomsoldier.org</b><span>Veteran stories, told as songs</span></div></div><div class="tab"><div><b>phantomsoldier.org</b><span>Veteran stories, told as songs</span></div></div></div>
+</section>
+</body>
+</html>
