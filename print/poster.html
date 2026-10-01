@@ -25,24 +25,28 @@
   @media print{body{background:#fff}.toolbar{display:none}.page{box-shadow:none;margin:0}}
   @page{size:11in 17in;margin:0}
   .toolbar{max-width:11in}
-  .page{background:var(--navy);width:11in;height:17in;margin:0 auto 20px;box-shadow:0 10px 30px -14px rgba(0,0,0,.5);position:relative;overflow:hidden;color:#fff}
-  .art{position:absolute;left:0;top:0;width:11in;height:7.4in;object-fit:cover;object-position:center 60%;display:block}
-  .wm{position:absolute;left:.6in;top:.5in;font-size:17px;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+  .page{background:var(--navy);width:11in;height:17in;margin:0 auto 20px;position:relative;overflow:hidden;color:#fff}
+  .art{position:absolute;left:0;top:0;width:11in;height:7.4in;object-fit:fill;display:block}
+  .wm{position:absolute;left:.6in;top:.5in;font-size:17px;color:#fff;}
   .wm svg{width:17px;height:17px;fill:#fff}
-  .fade{position:absolute;left:0;top:6.4in;width:11in;height:1.05in;background:linear-gradient(180deg,rgba(15,30,45,0),var(--navy))}
   .body{position:absolute;left:.6in;right:.6in;top:7.45in;bottom:.5in;display:flex;flex-direction:column}
   h1{font-size:84px;font-weight:700;line-height:.96;letter-spacing:-.01em;max-width:9.6in;margin:0}
   .tag{font-family:var(--sans);font-weight:600;font-size:36px;line-height:1.15;color:#fff;margin:.16in 0 0}
-  .sub{font-size:20px;line-height:1.4;color:#D6DEE7;max-width:8.2in;margin:.12in 0 .28in;text-wrap:balance}
+  .sub{font-family:var(--sans);font-weight:600;font-size:30px;line-height:1.2;color:#AEBBC8;margin:.14in 0 .3in}
+  .sub strong{color:#fff;font-weight:600}
   .bottom{margin-top:auto}
-  .tiles{display:grid;grid-template-columns:repeat(3,2.35in);gap:.34in;justify-content:center}
-  .tile{background:#fff;border-radius:14px;padding:.17in .17in .14in;text-align:center}
+  .tiles{display:grid;grid-template-columns:repeat(3,2.5in);gap:.55in;justify-content:center}
+  .tile{background:#fff;border-radius:14px;padding:.25in .25in .16in;text-align:center}
   .tile svg{width:2in;height:2in;display:block;margin:0 auto}
   .tile b{display:block;font-family:var(--sans);font-weight:700;font-size:21px;color:var(--ink);margin-top:.1in;line-height:1.1}
   .tile span{display:block;font-family:var(--sans);font-weight:500;font-size:14px;color:var(--muted);margin-top:2px}
   .avail{font-family:var(--sans);font-weight:600;font-size:26px;color:#fff;margin:.3in 0 0;text-align:center}
   .url{font-family:var(--sans);font-weight:700;font-size:70px;color:#fff;margin:.06in 0 0;letter-spacing:-.01em;line-height:1;text-align:center}
-  .crisis{margin:.28in 0 0;padding-top:.18in;border-top:1px solid #2C4359;font-size:16px;color:#AEBBC8;line-height:1.4;text-align:center}
+  .aw{height:6px;display:flex;margin:.3in 0 .16in}
+  .aw i{display:block;flex:1;height:100%}
+  .aw i:first-child{background:#2AA7A0}
+  .aw i:last-child{background:#7A5BB5}
+  .crisis{margin:0;font-size:16px;color:#AEBBC8;line-height:1.4;text-align:center}
   .crisis strong{color:#fff}
 
 </style>
@@ -54,13 +58,12 @@
   <p>Tabloid size, 11 by 17 inches, full bleed. Send the PDF to a print shop, or print at home on letter with "fit to page." The <a href="../print.html">letter flyer and business cards</a> are on the other print page.</p>
 </div>
 <section class="page">
-  <img class="art" src="../art/hero.jpg" width="1600" height="1120" alt="A handprint pressed into cracked concrete">
+  <img class="art" src="../art/poster-art.jpg" width="1600" height="1076" alt="A handprint pressed into cracked concrete">
   <p class="wordmark wm"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6l2.9 7.2 7.7.5-6 4.9 2 7.5-6.6-4.3-6.6 4.3 2-7.5-6-4.9 7.7-.5z"/></svg> Phantom Soldier</p>
-  <div class="fade"></div>
   <div class="body">
     <h1>Every veteran has a story they don't tell.</h1>
     <p class="tag">Nobody carries it alone. Not over there, not back here.</p>
-    <p class="sub">Tell your story. It comes back as a song. Free, and everything the music earns goes to veteran suicide prevention.</p>
+    <p class="sub"><strong>Tell yours.</strong> It comes back as a song.</p>
     <div class="bottom">
       <div class="tiles">
         <div class="tile"><svg width="116" height="116" viewBox="0 0 116 116" class="segno"><path transform="scale(4)" class="qrline" stroke="#1a2027" d="M0 0.5h7m1 0h1m1 0h2m1 0h6m1 0h1m1 0h7m-29 1h1m5 0h1m6 0h1m3 0h1m1 0h2m1 0h1m5 0h1m-29 1h1m1 0h3m1 0h1m5 0h1m1 0h1m1 0h2m1 0h1m2 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h6m1 0h1m2 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h1m2 0h2m1 0h5m3 0h1m1 0h3m1 0h1m-29 1h1m5 0h1m1 0h1m1 0h1m5 0h2m1 0h1m2 0h1m5 0h1m-29 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-21 1h1m2 0h1m2 0h2m1 0h2m1 0h1m-21 1h1m3 0h1m1 0h6m1 0h2m2 0h1m1 0h7m2 0h1m-29 1h1m2 0h1m1 0h1m3 0h1m3 0h4m4 0h8m-27 1h1m1 0h1m1 0h1m2 0h1m2 0h1m2 0h2m3 0h1m1 0h3m3 0h1m-28 1h1m6 0h2m1 0h1m3 0h3m3 0h2m1 0h2m1 0h2m-28 1h1m1 0h1m1 0h6m1 0h4m1 0h1m2 0h2m5 0h1m-26 1h1m2 0h1m1 0h2m2 0h2m1 0h3m1 0h1m3 0h7m-29 1h2m1 0h1m1 0h2m1 0h1m1 0h2m1 0h3m2 0h1m6 0h2m1 0h1m-29 1h1m1 0h2m3 0h2m2 0h1m1 0h1m1 0h1m1 0h2m1 0h1m2 0h1m3 0h2m-27 1h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h5m5 0h1m-28 1h2m3 0h1m1 0h1m2 0h1m2 0h3m1 0h2m3 0h4m1 0h2m-24 1h8m2 0h2m1 0h1m4 0h1m2 0h1m1 0h1m-27 1h1m1 0h2m1 0h1m1 0h1m1 0h1m2 0h2m1 0h2m1 0h1m1 0h3m2 0h2m-29 1h2m1 0h2m1 0h1m1 0h1m1 0h6m1 0h1m2 0h6m2 0h1m-21 1h3m1 0h1m2 0h2m2 0h2m3 0h1m3 0h1m-29 1h7m1 0h2m3 0h4m2 0h2m1 0h1m1 0h3m1 0h1m-29 1h1m5 0h1m2 0h1m1 0h3m1 0h1m1 0h4m3 0h1m2 0h1m-28 1h1m1 0h3m1 0h1m1 0h3m1 0h2m1 0h1m1 0h1m1 0h7m1 0h1m-28 1h1m1 0h3m1 0h1m6 0h4m4 0h1m6 0h1m-29 1h1m1 0h3m1 0h1m3 0h1m2 0h3m1 0h4m4 0h4m-29 1h1m5 0h1m2 0h2m1 0h6m2 0h4m1 0h1m1 0h2m-29 1h7m1 0h2m2 0h4m1 0h1m2 0h3m1 0h1m2 0h1"/></svg><b>Still Here</b><span>Scan to listen</span></div>
@@ -70,6 +73,7 @@
       <p class="avail">Available on all major streaming platforms.</p>
       <p class="url">phantomsoldier.org</p>
     </div>
+    <div class="aw" role="presentation"><i></i><i></i></div>
     <p class="crisis"><strong>Veterans Crisis Line: dial 988, then press 1.</strong> Text 838255. Free, confidential, 24/7, for veterans, service members, and their families.</p>
   </div>
 </section>

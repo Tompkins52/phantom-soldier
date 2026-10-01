@@ -61,6 +61,8 @@
     --red:#9E1B32;
     --red-hover:#861529;
     --red-navy:#E0394A;
+    --teal:#2AA7A0;
+    --purple:#7A5BB5;
     --sans:'IBM Plex Sans Condensed','Arial Narrow',Arial,sans-serif;
     --serif:'IBM Plex Serif',Georgia,'Times New Roman',serif;
     --radius:10px;
@@ -114,6 +116,9 @@
   .ribbon i:nth-child(1){background:#B31942}
   .ribbon i:nth-child(2){background:#FFFFFF}
   .ribbon i:nth-child(3){background:#1A4A8F}
+  .ribbon.aw i:nth-child(1){background:var(--teal)}
+  .ribbon.aw i:nth-child(2){background:var(--purple)}
+  .ribbon.aw i:nth-child(3){display:none}
 
   /* masthead */
   .masthead{background:var(--paper);border-bottom:1px solid var(--rule)}
@@ -149,6 +154,7 @@
 
   /* crisis strip */
   .strip{background:var(--stone);border-bottom:1px solid var(--rule)}
+  .strip strong a{color:var(--ink);text-decoration:none}
   .strip p{max-width:var(--wide);margin:0 auto;padding:14px 22px;font-size:16px;color:var(--ink-2);line-height:1.5}
   .strip strong{font-weight:600;color:var(--ink)}
 
@@ -213,7 +219,7 @@
   .thanks-card{background:#fff;border:1px solid var(--rule);border-top:5px solid var(--red);border-radius:var(--radius);padding:26px 24px}
 
   /* crisis card */
-  .crisis{background:#fff;border:1px solid var(--rule);border-left:5px solid var(--red);border-radius:0 var(--radius) var(--radius) 0;padding:22px 24px}
+  .crisis{background:#fff;border:1px solid var(--rule);border-left:5px solid var(--teal);border-radius:0 var(--radius) var(--radius) 0;padding:22px 24px}
   .crisis p{margin:0 0 .5em;font-size:18px}
   .crisis p:last-child{margin:0}
   .crisis strong{font-weight:600}
@@ -497,6 +503,7 @@
 </section>
 
 <!-- ================= RESOURCES ================= -->
+<div class="ribbon aw" role="presentation"><i></i><i></i><i></i></div>
 <section class="band stone" id="resources">
   <div class="wrap">
     <h2>If you need someone right now</h2>
