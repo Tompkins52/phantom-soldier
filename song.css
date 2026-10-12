@@ -19,6 +19,7 @@
   --serif:'IBM Plex Serif',Georgia,'Times New Roman',serif;
   --radius:10px;
   --col:600px;
+  --wide:1120px;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -142,4 +143,34 @@ h1{font-size:clamp(38px,9vw,52px);line-height:1;margin:28px 0 6px}
 
 @media print{
   .masthead,.player,.picker{display:none!important}
+}
+
+/* ---------- desktop layouts ---------- */
+@media (min-width:900px){
+  .masthead .row{max-width:var(--wide)}
+  main{max-width:var(--wide);padding:44px 22px 72px}
+
+  /* song page: listen panel on the left, story on the right */
+  main.song{display:grid;grid-template-columns:340px minmax(0,1fr);gap:72px;align-items:start}
+  main.song .side{min-width:0}
+  main.song .body{min-width:0;max-width:640px}
+  main.song .cover{max-width:none;margin:0}
+  main.song h1{font-size:clamp(34px,3.4vw,44px);margin-top:22px}
+  main.song .line{font-size:17px}
+  main.song .platforms a{padding:13px 16px;font-size:17px}
+  main.song .story{margin-top:0;padding-top:0;border-top:0}
+  main.song .story h2{font-size:clamp(34px,3.6vw,46px)}
+
+  /* hub: intro and picker on the left, cards on the right */
+  main.hub{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:64px;align-items:start}
+  main.hub .cards{margin-top:0}
+  main.hub .about,main.hub .crisis{grid-column:1 / -1;max-width:640px}
+}
+@media (min-width:1180px){
+  main.song{grid-template-columns:380px minmax(0,1fr);gap:96px}
+  main.song .platforms{grid-template-columns:1fr 1fr;gap:8px}
+}
+/* keep the listen panel in view while reading, only when the screen is tall enough to hold it */
+@media (min-width:900px) and (min-height:860px){
+  main.song .side{position:sticky;top:24px}
 }
