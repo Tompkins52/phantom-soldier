@@ -47,11 +47,18 @@ def clean(v):
 
 def digits(s): return re.sub(r"[^0-9]", "", clean(s))
 
+US = set("AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY PR GU VI AS MP".split())
+
 def fmt_phone(p):
-    d = digits(p)
+    """Returns (display, tel_digits) or ("", "") when it is not a 10-digit US number."""
+    raw = clean(p)
+    m = re.match(r"^\s*(.*?)(?:\s*(?:x|ext\.?|extension)\s*(\d{1,6}))?\s*$", raw, re.I)
+    main, ext = (m.group(1), m.group(2)) if m else (raw, None)
+    d = digits(main)
     if len(d) == 11 and d.startswith("1"): d = d[1:]
-    if len(d) == 10: return f"{d[:3]}-{d[3:6]}-{d[6:]}"
-    return clean(p)
+    if len(d) != 10: return "", ""
+    disp = f"{d[:3]}-{d[3:6]}-{d[6:]}" + (f" ext. {ext}" if ext else "")
+    return disp, d
 
 def fetch(url):
     r = requests.get(url, headers=UA, timeout=180); r.raise_for_status()
@@ -72,34 +79,51 @@ def main():
     rep_phone = {}
     if "Registration Num" in reps.columns and "Phone" in reps.columns:
         for _, r in reps.iterrows():
-            k = digits(r["Registration Num"]); p = fmt_phone(r["Phone"])
-            if k and len(digits(p)) >= 10: rep_phone[k] = p
+            k = digits(r["Registration Num"]); disp, tel = fmt_phone(r["Phone"])
+            if k and tel: rep_phone[k] = (disp, tel)
     log("representatives with a phone:", len(rep_phone))
 
+    # pass 1: one entry per organization + ZIP
     offices = {}
     for _, r in orgs.iterrows():
-        org = clean(r["Organization Name"]); z = digits(r["Rep Zip"])[:5]
-        if not org or len(z) != 5: continue
+        org = clean(r["Organization Name"]); z = digits(r["Rep Zip"])[:5]; st = clean(r["Rep State"]).upper()
+        if not org or len(z) != 5 or st not in US: continue
         key = (org.lower(), z)
-        o = offices.setdefault(key, {"org": org, "city": clean(r["Rep City"]), "state": clean(r["Rep State"]), "zip": z,
+        o = offices.setdefault(key, {"org": org, "city": clean(r["Rep City"]), "state": st, "zip": z,
                                      "phones": collections.Counter(), "main": fmt_phone(r["Org Phone"]), "reps": set()})
         reg = digits(r["Registration Num"])
         o["reps"].add(reg or clean(r["Representative"]))
         p = rep_phone.get(reg)
         if p: o["phones"][p] += 1
 
-    out = []
+    # pass 2: the same local phone at the same ZIP is the same office, whatever it is accredited through
+    merged = {}
     for o in offices.values():
         if o["phones"]:
-            phone, is_main = o["phones"].most_common(1)[0][0], 0
+            (disp, tel), is_main = o["phones"].most_common(1)[0][0], 0
+            key = ("tel", o["zip"], tel)
         else:
-            phone, is_main = (o["main"] if len(digits(o["main"])) >= 10 else ""), 1
-        out.append([o["org"], o["city"], o["state"], o["zip"], phone, len(o["reps"]), is_main])
+            (disp, tel), is_main = (o["main"] if o["main"][1] else ("", "")), 1
+            key = ("org", o["zip"], o["org"].lower())
+        m = merged.setdefault(key, {"orgs": [], "city": o["city"], "state": o["state"], "zip": o["zip"], "disp": disp, "tel": tel, "is_main": is_main, "reps": set()})
+        if o["org"] not in m["orgs"]: m["orgs"].append(o["org"])
+        m["reps"] |= o["reps"]
+
+    out = []
+    for m in merged.values():
+        orgs_l = m["orgs"]
+        if any(re.search(r"county veterans service officers", x, re.I) for x in orgs_l):
+            title = "County veterans service office"
+        elif len(orgs_l) == 1:
+            title = orgs_l[0]
+        else:
+            title = orgs_l[0] + " and " + str(len(orgs_l) - 1) + " more"
+        out.append([title, m["city"], m["state"], m["zip"], m["disp"], m["tel"], len(m["reps"]), m["is_main"], "; ".join(orgs_l)])
     out.sort(key=lambda x: (x[2], x[1], x[0]))
     today = datetime.date.today().isoformat()
     data = {"asof": today,
             "source": "VA Office of General Counsel accreditation lists (orgsexcellist.asp, repexcellist.asp)",
-            "fields": ["org", "city", "state", "zip", "phone", "reps", "phone_is_org_main_line"],
+            "fields": ["title", "city", "state", "zip", "phone", "tel", "reps", "phone_is_org_main_line", "accredited_through"],
             "offices": out}
     json.dump(data, open(OUT, "w"), separators=(",", ":"))
     log("offices:", len(out), "written to", OUT)
