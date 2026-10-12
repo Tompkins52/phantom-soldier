@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The stories behind the songs: Phantom Soldier</title>
+<meta name="description" content="Every Phantom Soldier song started as one true thing: a drawing, a fact about concrete, a question somebody asked at work. Pick a song and read where it came from.">
+<link rel="canonical" href="https://phantomsoldier.org/stories/">
+<meta property="og:title" content="The stories behind the songs: Phantom Soldier">
+<meta property="og:description" content="Every song started as one true thing. Pick a song and read where it came from.">
+<meta property="og:image" content="https://phantomsoldier.org/art/hard-to-break.jpg">
+<meta property="og:url" content="https://phantomsoldier.org/stories/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjMEYxRTJEIi8+PHBhdGggZD0iTTE2IDUuMmwzLjM1IDguMyA4Ljk1LjU1LTYuOTUgNS42NSAyLjMgOC43TDE2IDIzLjVsLTcuNjUgNC45IDIuMy04LjdMMy43IDE0LjA1bDguOTUtLjU1eiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPgo=">
+<meta name="theme-color" content="#0F1E2D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/song.css">
+</head>
+<body>
+<!--
+  Stories hub. Each song's story lives on the song's own page (/still-here/, /hard-to-break/, ...).
+  To add a song: add an <option> to the picker and a card to the list below, newest first.
+-->
+<header class="masthead">
+  <div class="row">
+    <a class="brand" href="/"><svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6l2.9 7.2 7.7.5-6 4.9 2 7.5-6.6-4.3-6.6 4.3 2-7.5-6-4.9 7.7-.5z"/></svg> Phantom Soldier</a>
+    <nav class="links" aria-label="Site"><a href="/#music">Music</a><a href="/">phantomsoldier.org</a></nav>
+  </div>
+</header>
+<main class="hub">
+  <h1>Where the songs come from</h1>
+  <p class="lead">Every song here started as one true thing. A drawing. A fact about concrete. A question somebody asked at work. This is where each one came from, and what it turned into.</p>
+  <p class="rule">No names. That's the rule on every song, including the first ones. The stories are told the way they came in, with anything that would identify a person left out.</p>
+
+  <form class="picker" action="/stories/" method="get">
+    <label for="pick">Pick a song</label>
+    <div class="row">
+      <select id="pick" name="song">
+        <option value="/i-cant-see-the-glass/">I Can't See the Glass (new single)</option>
+        <option value="/hard-to-break/">Hard to Break</option>
+        <option value="/still-here/">Still Here</option>
+        <option value="/all-the-wrong-reasons/">All the Wrong Reasons</option>
+      </select>
+      <button class="btn" type="submit">Read the story</button>
+    </div>
+  </form>
+
+  <ul class="cards" aria-label="Songs">
+    <li><a href="/i-cant-see-the-glass/">
+      <div class="thumb"><span>Out this month</span><img src="../art/i-cant-see-the-glass.jpg" alt="" onerror="this.style.display='none'"></div>
+      <div><h3>I Can't See the Glass <em>New single</em></h3><p>It started as a drawing: a path, glass walls you can't see until you hit them, and the X's at the bottom.</p></div>
+    </a></li>
+    <li><a href="/hard-to-break/">
+      <div class="thumb"><span>Hard to Break</span><img src="../art/hard-to-break.jpg" alt="" onerror="this.style.display='none'"></div>
+      <div><h3>Hard to Break</h3><p>Concrete is crushed stone. Nothing standing anywhere wasn't broken first.</p></div>
+    </a></li>
+    <li><a href="/still-here/">
+      <div class="thumb"><span>Still Here</span><img src="https://i.scdn.co/image/ab67616d0000b27351948f9a5da53bc4637896a1" alt="" onerror="this.style.display='none'"></div>
+      <div><h3>Still Here</h3><p>The first song. A quiet house, ringing ears, and the stance the whole project is built on.</p></div>
+    </a></li>
+    <li><a href="/all-the-wrong-reasons/">
+      <div class="thumb"><span>Wrong Reasons</span><img src="https://i.scdn.co/image/ab67616d0000b27351948f9a5da53bc4637896a1" alt="" onerror="this.style.display='none'"></div>
+      <div><h3>All the Wrong Reasons</h3><p>Somebody asked what he'd tell a kid about enlisting. The answer took half an hour.</p></div>
+    </a></li>
+  </ul>
+
+  <div class="about">
+    <p>Have one of your own? That's what this whole thing is for. It costs nothing, you approve every word before anyone hears a note, and your name never goes on it.</p>
+    <p style="margin:0"><a class="btn" href="/#submit">Tell your story</a></p>
+  </div>
+
+  <p class="crisis"><strong>Veterans Crisis Line: dial 988, then press 1.</strong> Text 838255. Free, confidential, 24/7, for veterans, service members, and their families.</p>
+</main>
+<script>
+(function(){
+  // ?song=/slug/ arrives here when the picker is submitted without JavaScript on another page.
+  var m=/[?&]song=([^&]+)/.exec(location.search);
+  if(m){var v=decodeURIComponent(m[1]);if(/^\/[a-z0-9-]+\/$/.test(v)){location.replace(v);return;}}
+  var f=document.querySelector('form.picker');if(!f)return;
+  f.addEventListener('submit',function(e){var s=f.querySelector('select');if(s&&s.value){e.preventDefault();location.href=s.value;}});
+})();
+</script>
+</body>
+</html>

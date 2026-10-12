@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Phantom Soldier: Veteran stories, told as songs</title>
-<meta name="description" content="Veterans tell the story they want told. It comes back as a song. Run on a non-profit basis: everything the music earns goes to veteran suicide prevention. New single 'Hard to Break' out now. Debut EP 'The Same Right Hand' streaming everywhere.">
+<meta name="description" content="Veterans tell the story they want told. It comes back as a song. Run on a non-profit basis: everything the music earns goes to veteran suicide prevention. New single 'I Can't See the Glass' coming this month. 'Hard to Break' and the debut EP 'The Same Right Hand' streaming everywhere, with the story behind every song.">
 <link rel="canonical" href="https://phantomsoldier.org/">
 <meta property="og:title" content="Phantom Soldier: Veteran stories, told as songs">
 <meta property="og:description" content="Tell the story you want told. It comes back as a song. New single 'Hard to Break' out now.">
@@ -176,6 +176,26 @@
   .lyric p span{display:block}
   .lyric .from{font-family:var(--serif);font-size:17px;font-style:italic;color:var(--muted);margin:16px 0 0}
 
+  /* stories band */
+  .stories .grid{display:grid;grid-template-columns:1fr;gap:34px}
+  .stories .lead{color:var(--navy-text);max-width:48ch;margin:14px 0 0}
+  .stories .small{font-size:16px;color:#AEBBC8;margin:18px 0 0;max-width:48ch}
+  .picker{margin:26px 0 0;background:var(--navy-2);border:1px solid var(--navy-rule);border-radius:var(--radius);padding:18px 20px}
+  .picker label{display:block;font-family:var(--sans);font-weight:600;font-size:16.5px;color:#fff;margin:0 0 10px}
+  .picker .row{display:flex;gap:10px;flex-wrap:wrap}
+  .picker select{flex:1 1 260px;width:auto;min-width:0}
+  .picker .btn{flex:0 0 auto}
+  .cards{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+  .cards a{display:grid;grid-template-columns:76px 1fr;gap:16px;align-items:center;padding:12px;background:var(--navy-2);border:1.5px solid var(--navy-rule);border-radius:var(--radius);color:#fff;text-decoration:none}
+  .cards a:hover{border-color:#fff}
+  .cards .thumb{position:relative;width:76px;height:76px;border-radius:6px;overflow:hidden;background:var(--navy);border:1px solid var(--navy-rule);display:flex;align-items:center;justify-content:center}
+  .cards .thumb span{font-family:var(--sans);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#fff;text-align:center;line-height:1.2;padding:4px}
+  .cards .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .cards h3{font-size:20px;line-height:1.15;font-weight:600;margin:0 0 4px;color:#fff}
+  .cards h3 em{font-style:normal;font-family:var(--serif);font-weight:400;font-size:15px;color:var(--red-navy)}
+  .cards p{margin:0;font-size:15.5px;line-height:1.45}
+  .release .cta-row{margin:22px 0 0}
+
   /* bluf */
   .bluf{background:#fff;border-left:5px solid var(--red);border-radius:0 var(--radius) var(--radius) 0;padding:22px 24px;margin:28px 0}
   .bluf .k{font-family:var(--sans);font-weight:600;font-size:16px;color:var(--red);margin:0 0 6px}
@@ -265,6 +285,7 @@
     }
     .hero .inner{padding:96px 22px;width:100%}
     .release{grid-template-columns:360px 1fr;gap:48px}
+    .stories .grid{grid-template-columns:1fr 1.3fr;gap:48px;align-items:start}
     .scan{display:flex;align-items:center;gap:16px;margin:26px 0 0}
     .scan figure{margin:0;text-align:center}
     .scan svg{width:84px;height:84px;display:block;border:1px solid var(--rule);border-radius:6px;padding:6px;background:#fff}
@@ -287,6 +308,7 @@
     </a>
     <nav class="nav" aria-label="Sections">
       <a href="#music">Music</a>
+      <a href="#stories">Stories</a>
       <a href="#how">How it works</a>
       <a href="#submit">Tell your story</a>
       <a href="#resources">Resources</a>
@@ -302,7 +324,7 @@
     <div class="cta">
       <a class="btn" href="#submit">Tell your story</a>
     </div>
-    <p class="out">Start with <a href="/still-here/">Still Here</a>. The new single, <a href="/hard-to-break/">Hard to Break</a>, is out now on every major platform.</p>
+    <p class="out">Start with <a href="/still-here/">Still Here</a>. <a href="/hard-to-break/">Hard to Break</a> is out now on every major platform. Next: <a href="/i-cant-see-the-glass/">I Can't See the Glass</a>, out this month. It started as a drawing.</p>
   </div>
 </section>
 <div class="ribbon" role="presentation"><i></i><i></i><i></i></div>
@@ -320,13 +342,26 @@
       change the cover, the title, the date line, the blurb, the Spotify embed id, the "also on"
       links, and the QR (print.html has the QR instructions). Nothing else needs to change.
     -->
+    <article class="release" id="i-cant-see-the-glass">
+      <img class="cover" src="art/i-cant-see-the-glass.jpg" width="1200" height="1200"
+           alt="Cover art for I Can't See the Glass: a pressure crack spreading through dark glass"
+           onerror="this.style.display='none';this.parentNode.style.gridTemplateColumns='1fr'">
+      <div>
+        <h2>I Can't See the Glass</h2>
+        <p class="when">New single, out October 2026</p>
+        <p class="blurb">It started as a drawing. Glass walls on the path to getting better, that you can't see until you hit them, and the X's at the bottom where you land when one doesn't give. The drawing is on the song's page, next to the lines it turned into.</p>
+        <p class="cta-row"><a class="btn" href="/i-cant-see-the-glass/">See the drawing, read the story</a></p>
+        <p class="also">Coming to Spotify, Apple Music, YouTube Music, and Amazon Music. <a href="https://open.spotify.com/artist/5sjQvSAfJsZI1ONhI8nuty">Follow Phantom Soldier on Spotify</a> and it lands in your Release Radar on release day.</p>
+      </div>
+    </article>
+
     <article class="release" id="hard-to-break">
       <img class="cover" src="art/hard-to-break.jpg" width="1200" height="1200"
            alt="Cover art for Hard to Break: a handprint pressed into cracked concrete">
       <div>
         <h2>Hard to Break</h2>
-        <p class="when">New single, out August 28, 2026</p>
-        <p class="blurb">Concrete is crushed stone, pressed until it holds. That's the song: what it takes to keep holding, and who you're holding it for. First single since the EP, and like the first five, it's ours. The next one could be yours.</p>
+        <p class="when">Single, out August 28, 2026</p>
+        <p class="blurb">Concrete is crushed stone, pressed until it holds. That's the song: what it takes to keep holding, and who you're holding it for. First single since the EP, and like the first five, it's ours. The next one could be yours. <a href="/hard-to-break/">Read the story behind it.</a></p>
         <iframe class="player" title="Play Hard to Break on Spotify" src="https://open.spotify.com/embed/track/49rhVBxgcvxZcR49DWossU?utm_source=generator&amp;theme=0" height="152" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
         <p class="also">Open it in <a href="https://open.spotify.com/track/49rhVBxgcvxZcR49DWossU">Spotify</a> or <a href="https://music.youtube.com/watch?v=cvXa3pg09iU">YouTube Music</a>. Also on <a href="https://music.apple.com/us/search?term=Phantom%20Soldier%20Hard%20to%20Break">Apple Music</a> and <a href="https://music.amazon.com/albums/B0HGL29M5B">Amazon Music</a>. Share it: <a href="/hard-to-break/">phantomsoldier.org/hard-to-break</a></p>
         <div class="scan" aria-hidden="true"><figure><svg width="116" height="116" viewBox="0 0 116 116" class="segno"><path transform="scale(4)" class="qrline" stroke="#1a2027" d="M0 0.5h7m2 0h2m1 0h1m1 0h1m1 0h4m2 0h7m-29 1h1m5 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m4 0h1m5 0h1m-29 1h1m1 0h3m1 0h1m1 0h5m5 0h2m2 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h4m1 0h3m1 0h1m2 0h1m1 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h1m7 0h5m1 0h1m1 0h3m1 0h1m-29 1h1m5 0h1m1 0h2m1 0h2m1 0h4m2 0h1m1 0h1m5 0h1m-29 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-21 1h4m2 0h3m3 0h1m-21 1h1m1 0h5m2 0h1m1 0h1m1 0h2m2 0h1m4 0h5m-26 1h1m1 0h1m4 0h1m3 0h1m6 0h2m1 0h3m3 0h1m-29 1h1m1 0h3m1 0h1m1 0h3m4 0h4m1 0h1m-21 1h2m2 0h2m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m-24 1h1m1 0h1m1 0h1m1 0h5m2 0h1m1 0h1m5 0h2m-27 1h1m1 0h2m1 0h1m1 0h1m1 0h2m1 0h2m2 0h1m1 0h7m3 0h1m-29 1h2m1 0h2m1 0h1m5 0h2m1 0h1m1 0h1m4 0h5m-23 1h1m4 0h1m2 0h1m1 0h3m3 0h1m1 0h1m1 0h1m2 0h1m-28 1h5m1 0h1m1 0h6m1 0h4m6 0h2m-27 1h5m2 0h1m3 0h3m2 0h9m1 0h1m1 0h1m-29 1h1m5 0h2m2 0h8m4 0h1m1 0h1m1 0h1m-27 1h1m1 0h1m1 0h1m3 0h2m1 0h1m2 0h3m3 0h1m6 0h1m-28 1h1m4 0h2m1 0h5m4 0h1m1 0h6m1 0h3m-21 1h1m3 0h1m4 0h2m1 0h1m3 0h5m-29 1h7m2 0h3m3 0h1m2 0h3m1 0h1m1 0h3m-27 1h1m5 0h1m1 0h2m1 0h1m3 0h2m1 0h3m3 0h1m-25 1h1m1 0h3m1 0h1m1 0h2m1 0h2m2 0h1m1 0h1m2 0h5m1 0h3m-29 1h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h1m3 0h1m1 0h3m4 0h4m-29 1h1m1 0h3m1 0h1m1 0h1m2 0h2m1 0h2m2 0h3m1 0h6m-28 1h1m5 0h1m2 0h6m5 0h2m2 0h2m1 0h1m-28 1h7m1 0h1m1 0h3m2 0h3m1 0h1m2 0h1m1 0h3"/></svg></figure><p>Scan to open on your phone</p></div>
@@ -345,7 +380,7 @@
       <div>
         <h2>The Same Right Hand</h2>
         <p class="when">Debut EP, July 2026. Five songs, 22 minutes.</p>
-        <p class="blurb">We weren't going to ask anybody for their story until we'd gone first, so the first five songs are our own. If you're deciding whether to tell yours, listen to these first. They're the honest answer to what we'll do with it.</p>
+        <p class="blurb">We weren't going to ask anybody for their story until we'd gone first, so the first five songs are our own. If you're deciding whether to tell yours, listen to these first. They're the honest answer to what we'll do with it. The stories behind <a href="/still-here/">Still Here</a> and <a href="/all-the-wrong-reasons/">All the Wrong Reasons</a> are up.</p>
         <iframe class="player" title="Play The Same Right Hand on Spotify" src="https://open.spotify.com/embed/album/2Wc209JAmYvbEH7PmfiEoW?utm_source=generator&amp;theme=0" height="352" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
         <p class="also">Open the EP in <a href="https://open.spotify.com/album/2Wc209JAmYvbEH7PmfiEoW">Spotify</a> or <a href="https://music.youtube.com/playlist?list=OLAK5uy_np_xKMbhbPF5u2O-wgnQ5yD3v5H47QZ2E">YouTube Music</a>. Also on <a href="https://music.apple.com/us/search?term=Phantom%20Soldier%20The%20Same%20Right%20Hand">Apple Music</a> and <a href="https://music.amazon.com/albums/B0H9H3JXTN">Amazon Music</a>. Share Still Here: <a href="/still-here/">phantomsoldier.org/still-here</a></p>
         <div class="scan" aria-hidden="true"><figure><svg width="132" height="132" viewBox="0 0 132 132" class="segno"><path transform="scale(4)" class="qrline" stroke="#1a2027" d="M0 0.5h7m1 0h1m1 0h4m2 0h1m1 0h3m1 0h2m2 0h7m-33 1h1m5 0h1m1 0h1m1 0h4m2 0h1m1 0h1m1 0h1m2 0h1m2 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m2 0h2m7 0h1m1 0h1m1 0h3m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m1 0h3m2 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h2m2 0h2m2 0h1m4 0h3m1 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m2 0h1m1 0h4m2 0h1m1 0h4m1 0h1m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h1m1 0h1m6 0h3m2 0h3m-25 1h1m1 0h2m1 0h3m1 0h2m1 0h1m4 0h2m2 0h1m4 0h1m2 0h1m1 0h2m-33 1h6m1 0h2m2 0h1m4 0h1m1 0h2m1 0h4m1 0h2m1 0h2m1 0h1m-33 1h2m2 0h4m1 0h2m1 0h1m1 0h1m2 0h1m3 0h3m2 0h4m1 0h2m-32 1h2m1 0h2m1 0h1m2 0h7m2 0h1m3 0h2m2 0h1m1 0h1m2 0h1m-30 1h1m2 0h6m3 0h1m2 0h2m1 0h5m1 0h1m1 0h1m1 0h1m-31 1h2m1 0h1m6 0h1m1 0h1m2 0h1m2 0h1m2 0h3m2 0h1m1 0h1m1 0h1m-32 1h3m2 0h4m1 0h1m2 0h8m1 0h1m3 0h1m2 0h2m-30 1h1m2 0h1m2 0h1m1 0h2m1 0h1m1 0h1m1 0h1m3 0h2m1 0h6m1 0h1m-29 1h3m1 0h2m1 0h7m2 0h1m2 0h3m1 0h2m1 0h1m1 0h1m-29 1h4m3 0h1m1 0h2m2 0h1m1 0h1m2 0h1m1 0h5m1 0h2m-30 1h2m2 0h8m3 0h1m1 0h1m3 0h1m3 0h4m1 0h2m-29 1h2m4 0h2m5 0h1m2 0h1m3 0h4m1 0h1m-29 1h2m1 0h7m3 0h1m1 0h1m2 0h2m1 0h1m6 0h4m-32 1h1m3 0h2m3 0h4m2 0h1m1 0h2m1 0h1m2 0h1m1 0h1m4 0h1m1 0h1m-31 1h2m2 0h1m1 0h3m1 0h2m2 0h3m2 0h3m1 0h1m1 0h1m1 0h4m-32 1h1m3 0h1m1 0h2m1 0h1m1 0h3m1 0h1m1 0h2m3 0h2m1 0h1m-27 1h1m1 0h2m1 0h2m3 0h1m2 0h3m1 0h3m2 0h1m1 0h6m1 0h1m-24 1h3m4 0h3m1 0h1m1 0h4m3 0h2m1 0h1m-32 1h7m1 0h3m2 0h1m5 0h2m2 0h2m1 0h1m1 0h1m2 0h1m-32 1h1m5 0h1m1 0h2m1 0h1m1 0h3m5 0h4m3 0h5m-33 1h1m1 0h3m1 0h1m2 0h3m5 0h1m1 0h10m1 0h2m-32 1h1m1 0h3m1 0h1m1 0h1m3 0h2m3 0h2m1 0h1m1 0h1m4 0h1m4 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h1m3 0h1m3 0h2m1 0h4m2 0h1m-31 1h1m5 0h1m2 0h1m3 0h1m1 0h5m4 0h1m2 0h3m2 0h1m-33 1h7m1 0h2m1 0h2m2 0h5m1 0h1m1 0h1m4 0h3"/></svg></figure><p>Scan to open on your phone</p></div>
@@ -353,6 +388,49 @@
     </article>
 
     <p class="note" style="margin:54px 0 0;max-width:62ch">Full disclosure, because you'll wonder when you hit play: these songs are made with AI. The lyrics are drafted with AI's help and the music is produced with Suno. The stories are real, and a real person works with you from start to finish.</p>
+  </div>
+</section>
+
+<!-- ================= STORIES ================= -->
+<section class="band navy stories" id="stories">
+  <div class="wide">
+    <div class="grid">
+      <div>
+        <h2>Where the songs come from</h2>
+        <p class="lead">Every song here started as one true thing. A drawing. A fact about concrete. A question somebody asked at work. Pick a song and read where it came from, then play it.</p>
+        <form class="picker" action="/stories/" method="get">
+          <label for="pick">Pick a song</label>
+          <div class="row">
+            <select id="pick" name="song">
+              <option value="/i-cant-see-the-glass/">I Can't See the Glass (new single)</option>
+              <option value="/hard-to-break/">Hard to Break</option>
+              <option value="/still-here/">Still Here</option>
+              <option value="/all-the-wrong-reasons/">All the Wrong Reasons</option>
+            </select>
+            <button class="btn" type="submit">Read the story</button>
+          </div>
+        </form>
+        <p class="small">No names. That's the rule on every song, including the first ones. The stories are told the way they came in, with anything that would identify a person left out.</p>
+      </div>
+      <ul class="cards" aria-label="Songs">
+        <li><a href="/i-cant-see-the-glass/">
+          <div class="thumb"><span>Out this month</span><img src="art/i-cant-see-the-glass.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div><h3>I Can't See the Glass <em>New single</em></h3><p>It started as a drawing: a path, glass walls you can't see until you hit them, and the X's at the bottom.</p></div>
+        </a></li>
+        <li><a href="/hard-to-break/">
+          <div class="thumb"><span>Hard to Break</span><img src="art/hard-to-break.jpg" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div><h3>Hard to Break</h3><p>Concrete is crushed stone. Nothing standing anywhere wasn't broken first.</p></div>
+        </a></li>
+        <li><a href="/still-here/">
+          <div class="thumb"><span>Still Here</span><img src="https://i.scdn.co/image/ab67616d0000b27351948f9a5da53bc4637896a1" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div><h3>Still Here</h3><p>The first song. A quiet house, ringing ears, and the stance the whole project is built on.</p></div>
+        </a></li>
+        <li><a href="/all-the-wrong-reasons/">
+          <div class="thumb"><span>Wrong Reasons</span><img src="https://i.scdn.co/image/ab67616d0000b27351948f9a5da53bc4637896a1" alt="" loading="lazy" onerror="this.style.display='none'"></div>
+          <div><h3>All the Wrong Reasons</h3><p>Somebody asked what he'd tell a kid about enlisting. The answer took half an hour.</p></div>
+        </a></li>
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -583,7 +661,7 @@
       <div>
         <h3>Phantom Soldier</h3>
         <p>Veteran stories, told as songs. You tell the story you want told. If it becomes one, it's released under Phantom Soldier or kept private, just for you. No cost to the veteran, and everything the music earns is donated to veteran suicide prevention.</p>
-        <p style="margin:0"><a href="#submit">Tell your story</a> &nbsp; <a href="#music">Hear the music</a> &nbsp; <a href="print.html">Print flyers, posters, and cards</a></p>
+        <p style="margin:0"><a href="#submit">Tell your story</a> &nbsp; <a href="#music">Hear the music</a> &nbsp; <a href="/stories/">The stories behind the songs</a> &nbsp; <a href="print.html">Print flyers, posters, and cards</a></p>
       </div>
       <div>
         <h3>Contact and share</h3>
@@ -602,6 +680,14 @@
 </footer>
 
 <script>
+(function(){
+  var f = document.querySelector('form.picker');
+  if(!f) return;
+  f.addEventListener('submit', function(e){
+    var s = f.querySelector('select');
+    if(s && s.value){ e.preventDefault(); location.href = s.value; }
+  });
+})();
 (function(){
   var form = document.getElementById('storyForm');
   if(!form) return;
