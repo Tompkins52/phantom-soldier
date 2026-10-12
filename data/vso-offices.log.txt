@@ -1,4 +1,9 @@
 attempted 2026-10-12
+format: html table
+PROBE https://www.va.gov/ogc/apps/accreditation/orgsexcellist.asp rows: 18656 columns: ['Organization Name', 'POA', 'Org Phone', 'Org City', 'Org State', 'Representative', 'Rep City', 'Rep State', 'Rep Zip', 'Registration Num']
+  row 0 ['African American PTSD Association', "'091", '253-300-8168', 'Lakewood', 'WA', 'Anderson, Edgar B', 'Hazel Crest', 'IL', "'60429", '8239']
+  row 1 ['African American PTSD Association', "'091", '253-300-8168', 'Lakewood', 'WA', 'Anderson, Victoria C', 'Hazel Crest', 'IL', "'60429", '24028']
+  row 2 ['African American PTSD Association', "'091", '253-300-8168', 'Lakewood', 'WA', 'Berry, Joe E', 'Hazel Crest', 'IL', "'60429", '53299']
 downloaded 1346853 bytes, content-type: application/vnd.ms-excel
 format: html table
 rows: 8627
