@@ -91,76 +91,17 @@
 
     <form class="form-card vso-form" id="vsoForm" style="margin-top:22px">
       <div class="field">
-        <label for="county">Your county <span class="hint">Parish or borough, if that's what your state calls it. Leave it blank if you're not sure.</span></label>
-        <input id="county" type="text" name="county" autocomplete="address-level2" placeholder="Kane">
-      </div>
-      <div class="field">
-        <label for="state">Your state</label>
-        <select id="state" name="state" required>
-          <option value="">Pick a state</option>
-            <option value="AL">Alabama</option>
-            <option value="AK">Alaska</option>
-            <option value="AZ">Arizona</option>
-            <option value="AR">Arkansas</option>
-            <option value="CA">California</option>
-            <option value="CO">Colorado</option>
-            <option value="CT">Connecticut</option>
-            <option value="DE">Delaware</option>
-            <option value="DC">District of Columbia</option>
-            <option value="FL">Florida</option>
-            <option value="GA">Georgia</option>
-            <option value="GU">Guam</option>
-            <option value="HI">Hawaii</option>
-            <option value="ID">Idaho</option>
-            <option value="IL">Illinois</option>
-            <option value="IN">Indiana</option>
-            <option value="IA">Iowa</option>
-            <option value="KS">Kansas</option>
-            <option value="KY">Kentucky</option>
-            <option value="LA">Louisiana</option>
-            <option value="ME">Maine</option>
-            <option value="MD">Maryland</option>
-            <option value="MA">Massachusetts</option>
-            <option value="MI">Michigan</option>
-            <option value="MN">Minnesota</option>
-            <option value="MS">Mississippi</option>
-            <option value="MO">Missouri</option>
-            <option value="MT">Montana</option>
-            <option value="NE">Nebraska</option>
-            <option value="NV">Nevada</option>
-            <option value="NH">New Hampshire</option>
-            <option value="NJ">New Jersey</option>
-            <option value="NM">New Mexico</option>
-            <option value="NY">New York</option>
-            <option value="NC">North Carolina</option>
-            <option value="ND">North Dakota</option>
-            <option value="OH">Ohio</option>
-            <option value="OK">Oklahoma</option>
-            <option value="OR">Oregon</option>
-            <option value="PA">Pennsylvania</option>
-            <option value="PR">Puerto Rico</option>
-            <option value="RI">Rhode Island</option>
-            <option value="SC">South Carolina</option>
-            <option value="SD">South Dakota</option>
-            <option value="TN">Tennessee</option>
-            <option value="TX">Texas</option>
-            <option value="UT">Utah</option>
-            <option value="VT">Vermont</option>
-            <option value="VA">Virginia</option>
-            <option value="WA">Washington</option>
-            <option value="WV">West Virginia</option>
-            <option value="WI">Wisconsin</option>
-            <option value="WY">Wyoming</option>
-            <option value="VI">U.S. Virgin Islands</option>
-            <option value="AS">American Samoa</option>
-            <option value="MP">Northern Mariana Islands</option>
-        </select>
+        <label for="zip">Your ZIP code</label>
+        <input id="zip" type="text" name="zip" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}" maxlength="5" placeholder="60510" required>
       </div>
       <button class="btn" type="submit">Find my VSO</button>
+      <p class="form-status" id="vsoStatus" role="status" aria-live="polite"></p>
     </form>
 
     <div id="vsoResults" hidden>
       <h3 id="vsoHead" style="margin:30px 0 0"></h3>
+      <p class="note" id="vsoSub" style="margin:6px 0 0"></p>
+      <ul class="lines" id="vsoNear" style="margin-top:16px"></ul>
       <ul class="lines" id="vsoList" style="margin-top:16px"></ul>
       <p class="note" style="margin:22px 0 0">What to bring: your DD-214, any letters the VA has sent you, whatever medical records you have, and a list of what you're claiming. No DD-214? A VSO can help you request a copy.</p>
     </div>
@@ -168,7 +109,7 @@
     <noscript>
       <ul class="lines" style="margin-top:22px">
         <li><h3>County and state service officers</h3><p><a href="https://www.nacvso.org/county-veterans-service-officers">Search the county VSO directory</a> by state and county, or look up your state's veterans department.</p></li>
-        <li><h3>VA accredited representative finder</h3><p><a href="https://www.va.gov/get-help-from-accredited-representative/find-rep/">The VA's own directory.</a> Choose Veterans Service Organization and enter your city or ZIP.</p></li>
+        <li><h3>VA accredited representative finder</h3><p><a href="https://www.va.gov/get-help-from-accredited-representative/find-rep/">The VA directory.</a> Choose Veterans Service Organization and enter your city or ZIP.</p></li>
         <li><h3>National organizations, free, no membership needed</h3><p><a href="https://www.dav.org/veterans/find-your-local-office/">DAV</a>, <a href="https://www.vfw.org/assistance/va-claims-separation-benefits">VFW</a>, <a href="https://www.legion.org/serviceofficers">American Legion</a>.</p></li>
       </ul>
     </noscript>
@@ -215,25 +156,62 @@
 (function(){
   var S={AL:["Alabama","https://va.alabama.gov/"],AK:["Alaska","https://veterans.alaska.gov/"],AZ:["Arizona","https://dvs.az.gov/"],AR:["Arkansas","https://www.veterans.arkansas.gov/"],CA:["California","https://www.calvet.ca.gov/"],CO:["Colorado","https://vets.colorado.gov/"],CT:["Connecticut","https://portal.ct.gov/dva"],DE:["Delaware","https://vets.delaware.gov/"],DC:["District of Columbia","https://communityaffairs.dc.gov/mova"],FL:["Florida","https://www.floridavets.org/"],GA:["Georgia","https://veterans.georgia.gov/"],GU:["Guam","https://gvao.guam.gov/"],HI:["Hawaii","https://dod.hawaii.gov/ovs/"],ID:["Idaho","https://veterans.idaho.gov/"],IL:["Illinois","https://veterans.illinois.gov/"],IN:["Indiana","https://www.in.gov/dva/"],IA:["Iowa","https://va.iowa.gov/"],KS:["Kansas","https://kcva.ks.gov/"],KY:["Kentucky","https://veterans.ky.gov/"],LA:["Louisiana","https://www.vetaffairs.la.gov/"],ME:["Maine","https://www.maine.gov/veterans/"],MD:["Maryland","https://veterans.maryland.gov/"],MA:["Massachusetts","https://www.mass.gov/orgs/executive-office-of-veterans-services"],MI:["Michigan","https://www.michigan.gov/mvaa/"],MN:["Minnesota","https://mn.gov/mdva/"],MS:["Mississippi","https://www.msva.ms.gov/"],MO:["Missouri","https://mvc.dps.mo.gov/"],MT:["Montana","https://dma.mt.gov/MVAD/index"],NE:["Nebraska","https://veterans.nebraska.gov/"],NV:["Nevada","https://veterans.nv.gov/"],NH:["New Hampshire","https://www.dmavs.nh.gov/veterans-services"],NJ:["New Jersey","https://www.nj.gov/military/veterans/"],NM:["New Mexico","https://www.nmdvs.org/"],NY:["New York","https://veterans.ny.gov/"],NC:["North Carolina","https://www.milvets.nc.gov/"],ND:["North Dakota","https://www.nd.gov/veterans/"],OH:["Ohio","https://dvs.ohio.gov/"],OK:["Oklahoma","https://oklahoma.gov/veterans.html"],OR:["Oregon","https://www.oregon.gov/odva/Pages/default.aspx"],PA:["Pennsylvania","https://www.pa.gov/agencies/dmva"],PR:["Puerto Rico",""],RI:["Rhode Island","https://vets.ri.gov/"],SC:["South Carolina","https://scdva.sc.gov/"],SD:["South Dakota","https://vetaffairs.sd.gov/"],TN:["Tennessee","https://www.tn.gov/veteran.html"],TX:["Texas","https://www.tvc.texas.gov/"],UT:["Utah","https://veterans.utah.gov/"],VT:["Vermont","https://veterans.vermont.gov/"],VA:["Virginia","https://www.dvs.virginia.gov/"],WA:["Washington","https://dva.wa.gov/"],WV:["West Virginia","https://veterans.wv.gov/"],WI:["Wisconsin","https://dva.wi.gov/"],WY:["Wyoming","https://www.wyomilitary.wyo.gov/veterans/"],VI:["U.S. Virgin Islands",""],AS:["American Samoa",""],MP:["Northern Mariana Islands",""]};
   var f=document.getElementById('vsoForm');if(!f)return;
-  var out=document.getElementById('vsoResults'),head=document.getElementById('vsoHead'),list=document.getElementById('vsoList');
-  function esc(t){return t.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-  f.addEventListener('submit',function(e){
-    e.preventDefault();
-    var code=f.state.value, st=S[code]; if(!st) return;
-    var name=st[0], site=st[1];
-    var county=f.county.value.trim().replace(/\s+county$/i,'');
-    var where=county?esc(county)+' County, '+esc(name):esc(name);
+  var out=document.getElementById('vsoResults'),head=document.getElementById('vsoHead'),sub=document.getElementById('vsoSub'),near=document.getElementById('vsoNear'),list=document.getElementById('vsoList'),status=document.getElementById('vsoStatus');
+  var ZIPS=null, REPS=null, NOREPS=false;
+  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function getJSON(u){return fetch(u,{cache:'force-cache'}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json();});}
+  function dist(a,b,c,d){var R=3958.8,p=Math.PI/180,x=(c-a)*p,y=(d-b)*p,h=Math.sin(x/2)*Math.sin(x/2)+Math.cos(a*p)*Math.cos(c*p)*Math.sin(y/2)*Math.sin(y/2);return 2*R*Math.asin(Math.sqrt(h));}
+  function tel(p){return 'tel:'+String(p).replace(/[^0-9+]/g,'');}
+  function render(zip,row){
+    var parts=row.split('|'),lat=+parts[0],lon=+parts[1],county=parts[2],code=parts[3],st=S[code]||[code,''],name=st[0],site=st[1];
+    head.textContent='For '+zip+(county?', '+county+' County':'')+', '+name;
     var q=encodeURIComponent((county?county+' County ':'')+name+' veterans service officer');
     var items=[];
-    items.push('<li><h3>Your county office</h3><p><a href="https://www.google.com/search?q='+q+'">Search for the '+where+' veterans service office</a>. County offices are usually listed on the county website; this gets you there in one click. Or <a href="https://www.nacvso.org/county-veterans-service-officers">search the county VSO directory</a> by state and county.</p></li>');
+    items.push('<li><h3>Your county office</h3><p><a href="https://www.google.com/search?q='+q+'">Search for the '+esc(county?county+' County, '+name:name)+' veterans service office</a>. County offices are usually listed on the county website; this gets you there in one click. Or <a href="https://www.nacvso.org/county-veterans-service-officers">search the county VSO directory</a> by state and county.</p></li>');
     if(site){ items.push('<li><h3>'+esc(name)+' veterans department</h3><p><a href="'+site+'">Open the state site</a>. Every state runs one, and most have their own service officers and a benefits line.</p></li>'); }
-    else { items.push('<li><h3>'+esc(name)+'</h3><p>Use the VA directory below and the national organizations; they cover the territories.</p></li>'); }
-    items.push('<li><h3>VA accredited representative finder</h3><p><a href="https://www.va.gov/get-help-from-accredited-representative/find-rep/">The VA directory</a>. Choose Veterans Service Organization and enter your city or ZIP.</p></li>');
+    items.push('<li><h3>VA accredited representative finder</h3><p><a href="https://www.va.gov/get-help-from-accredited-representative/find-rep/">The VA directory</a>. Choose Veterans Service Organization and enter your ZIP.</p></li>');
     items.push('<li><h3>National organizations, free, no membership needed</h3><p><a href="https://www.dav.org/veterans/find-your-local-office/">DAV</a>, <a href="https://www.vfw.org/assistance/va-claims-separation-benefits">VFW</a>, and the <a href="https://www.legion.org/serviceofficers">American Legion</a> all have accredited service officers who will file with you.</p></li>');
-    head.textContent='For '+(county?county+' County, ':'')+name;
     list.innerHTML=items.join('');
-    out.hidden=false;
-    out.scrollIntoView({behavior:'smooth',block:'start'});
+    near.innerHTML=''; sub.textContent='';
+    if(REPS&&REPS.reps){
+      // REPS.reps rows: [name, org, street, city, state, zip, phone, email]
+      var offices={}, i, r, z, c;
+      for(i=0;i<REPS.reps.length;i++){
+        r=REPS.reps[i]; z=ZIPS[String(r[5]).slice(0,5)]; if(!z) continue;
+        c=z.split('|'); var d=dist(lat,lon,+c[0],+c[1]);
+        var key=(r[1]+'|'+r[2]+'|'+r[5]).toLowerCase();
+        if(!offices[key]) offices[key]={d:d,org:r[1],street:r[2],city:r[3],st:r[4],zip:r[5],reps:[]};
+        offices[key].reps.push(r);
+      }
+      var arr=Object.keys(offices).map(function(k){return offices[k];}).sort(function(a,b){return a.d-b.d;}).slice(0,3);
+      if(arr.length){
+        sub.textContent='The three nearest offices with a VA-accredited VSO representative, from the VA accreditation list (updated '+REPS.asof+'). Call before you drive.';
+        near.innerHTML=arr.map(function(o){
+          var reps=o.reps.slice(0,4).map(function(r){
+            var bits=[esc(r[0])];
+            if(r[6]) bits.push('<a href="'+tel(r[6])+'">'+esc(r[6])+'</a>');
+            if(r[7]) bits.push('<a href="mailto:'+esc(r[7])+'">'+esc(r[7])+'</a>');
+            return '<li>'+bits.join(' &middot; ')+'</li>';
+          }).join('');
+          var more=o.reps.length>4?'<p class="note" style="margin:6px 0 0">'+(o.reps.length-4)+' more at this office.</p>':'';
+          var addr=[o.street,o.city+(o.st?', '+o.st:'')+' '+o.zip].filter(Boolean).join(', ');
+          return '<li><h3>'+esc(o.org)+'</h3><p class="num" style="font-size:17px;font-family:var(--serif);font-weight:400;color:var(--ink-2)">'+esc(addr)+' &middot; '+o.d.toFixed(0)+' mi</p><ul class="reps">'+reps+'</ul>'+more+'</li>';
+        }).join('');
+      }
+    }
+    out.hidden=false; out.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var zip=f.zip.value.trim(); if(!/^[0-9]{5}$/.test(zip)){status.className='form-status err';status.textContent='Enter a five-digit ZIP code.';return;}
+    status.className='form-status'; status.textContent='Looking it up…';
+    var loads=[ZIPS?Promise.resolve(ZIPS):getJSON('/data/zips.json').then(function(j){ZIPS=j;return j;})];
+    if(!REPS&&!NOREPS) loads.push(getJSON('/data/vso-reps.json').then(function(j){REPS=j;},function(){NOREPS=true;}));
+    Promise.all(loads).then(function(){
+      status.textContent='';
+      var row=ZIPS[zip]; if(!row){status.className='form-status err';status.textContent='That ZIP code is not in our table. Try a nearby one, or use the VA directory below.';return;}
+      render(zip,row);
+    }).catch(function(){status.className='form-status err';status.textContent='The lookup did not load. Use the links below.';});
   });
 })();
 </script>
