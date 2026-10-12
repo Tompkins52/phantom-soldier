@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
-"""Refresh data/vso-offices.json from the VA Office of General Counsel's public list of
-VA-accredited VSO representatives (the same list behind the VA's own "find a representative" tool).
+"""Refresh data/vso-offices.json from the VA Office of General Counsel's public accreditation lists
+(the same data behind the VA's own "find a representative" tool).
 
-Source: https://www.va.gov/ogc/apps/accreditation/  ("Download Complete Lists": VSO Representatives)
+Source page: https://www.va.gov/ogc/apps/accreditation/  ("Download Complete Lists")
+  orgsexcellist.asp  one row per representative + organization: org name, org phone, rep city/state/zip
+  repexcellist.asp   one row per representative: registration number, city/state/zip, the rep's phone
 
-The site only shows offices, never individual representatives: one entry per organization + street
-address, with the office phone and how many accredited representatives work out of it.
+The site only shows offices, never individual representatives: one entry per organization + ZIP,
+with the local phone (the number most of that office's representatives list) and how many
+accredited representatives work out of it.
 """
 import io, json, re, sys, datetime, collections
 import requests, pandas as pd
 
-URL = "https://www.va.gov/ogc/apps/accreditation/repexcellist.asp"
+ORG_URL = "https://www.va.gov/ogc/apps/accreditation/orgsexcellist.asp"
+REP_URL = "https://www.va.gov/ogc/apps/accreditation/repexcellist.asp"
 OUT = "data/vso-offices.json"
 LOG = "data/vso-offices.log.txt"
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) phantomsoldier.org VSO office finder (monthly refresh)"}
@@ -22,90 +26,84 @@ def log(*a):
 def load_table(raw: bytes) -> pd.DataFrame:
     head = raw[:8]
     if head.startswith(b"PK"):
-        log("format: xlsx"); return pd.read_excel(io.BytesIO(raw), dtype=str, engine="openpyxl")
+        return pd.read_excel(io.BytesIO(raw), dtype=str, engine="openpyxl")
     if head.startswith(b"\xd0\xcf\x11\xe0"):
-        log("format: xls"); return pd.read_excel(io.BytesIO(raw), dtype=str, engine="xlrd")
+        return pd.read_excel(io.BytesIO(raw), dtype=str, engine="xlrd")
     text = raw.decode("utf-8", "replace").lstrip("﻿")
     if "<table" in text.lower() or "<html" in text.lower():
-        log("format: html table")
         tables = pd.read_html(io.StringIO(text), flavor="lxml")
         tables.sort(key=lambda t: -len(t))
         df = tables[0]
         if not any(isinstance(c, str) and re.search(r"[A-Za-z]", c) for c in df.columns):
             df.columns = [str(c).strip() for c in df.iloc[0]]; df = df.iloc[1:]
         return df.astype(str)
-    log("format: delimited text")
     sep = "\t" if text.count("\t") > text.count(",") else ","
     return pd.read_csv(io.StringIO(text), sep=sep, dtype=str)
 
-def pick(cols, *patterns):
-    for p in patterns:
-        for c in cols:
-            if re.search(p, c, re.I): return c
-    return None
-
 def clean(v):
     if v is None: return ""
-    s = str(v).strip()
+    s = str(v).strip().lstrip("'")
     return "" if s.lower() in ("nan", "none", "null") else re.sub(r"\s+", " ", s)
 
-ORG_URL = "https://www.va.gov/ogc/apps/accreditation/orgsexcellist.asp"
+def digits(s): return re.sub(r"[^0-9]", "", clean(s))
 
-def probe(url):
-    r = requests.get(url, headers=UA, timeout=120); r.raise_for_status()
-    df = load_table(r.content); df.columns = [clean(c) for c in df.columns]
-    log("PROBE", url, "rows:", len(df), "columns:", list(df.columns))
-    for i in range(min(3, len(df))):
-        log("  row", i, [clean(v) for v in df.iloc[i].tolist()])
+def fmt_phone(p):
+    d = digits(p)
+    if len(d) == 11 and d.startswith("1"): d = d[1:]
+    if len(d) == 10: return f"{d[:3]}-{d[3:6]}-{d[6:]}"
+    return clean(p)
+
+def fetch(url):
+    r = requests.get(url, headers=UA, timeout=180); r.raise_for_status()
+    df = load_table(r.content)
+    df.columns = [clean(c) for c in df.columns]
+    log("downloaded", url.rsplit("/", 1)[-1], len(r.content), "bytes,", len(df), "rows, columns:", list(df.columns))
     return df
 
 def main():
-    probe(ORG_URL)
-    r = requests.get(URL, headers=UA, timeout=120)
-    r.raise_for_status()
-    raw = r.content
-    log("downloaded", len(raw), "bytes, content-type:", r.headers.get("content-type"))
-    df = load_table(raw)
-    df.columns = [clean(c) for c in df.columns]
-    log("rows:", len(df)); log("columns:", list(df.columns))
-    cols = list(df.columns)
-    c_org   = pick(cols, r"^org", r"organi", r"\bvso\b", r"accredit.*org")
-    c_street= pick(cols, r"^address\b", r"address ?1", r"street", r"^addr")
-    c_city  = pick(cols, r"^city")
-    c_state = pick(cols, r"^state")
-    c_zip   = pick(cols, r"zip", r"postal")
-    c_phone = pick(cols, r"phone", r"telephone")
-    c_last  = pick(cols, r"last ?name", r"^last")
-    log("mapping:", {"org": c_org, "street": c_street, "city": c_city, "state": c_state, "zip": c_zip, "phone": c_phone, "last": c_last})
-    if not (c_org and c_zip):
-        log("ERROR: could not map organization/zip columns"); sys.exit(1)
+    orgs = fetch(ORG_URL)
+    reps = fetch(REP_URL)
+    need = ["Organization Name", "Org Phone", "Representative", "Rep City", "Rep State", "Rep Zip", "Registration Num"]
+    missing = [c for c in need if c not in orgs.columns]
+    if missing:
+        log("ERROR: organizations list is missing columns", missing); sys.exit(1)
 
-    offices = collections.OrderedDict()
-    for _, row in df.iterrows():
-        org = clean(row.get(c_org)); z = clean(row.get(c_zip))
-        z5 = re.sub(r"[^0-9]", "", z)[:5]
-        if not org or len(z5) != 5: continue
-        street = clean(row.get(c_street)) if c_street else ""
-        city = clean(row.get(c_city)) if c_city else ""
-        state = clean(row.get(c_state)) if c_state else ""
-        phone = clean(row.get(c_phone)) if c_phone else ""
-        key = (org.lower(), street.lower(), z5)
-        o = offices.setdefault(key, {"org": org, "street": street, "city": city, "state": state, "zip": z5, "phones": collections.Counter(), "reps": 0})
-        o["reps"] += 1
-        digits = re.sub(r"[^0-9]", "", phone)
-        if len(digits) >= 10: o["phones"][phone] += 1
+    # the representative's own phone, by registration number
+    rep_phone = {}
+    if "Registration Num" in reps.columns and "Phone" in reps.columns:
+        for _, r in reps.iterrows():
+            k = digits(r["Registration Num"]); p = fmt_phone(r["Phone"])
+            if k and len(digits(p)) >= 10: rep_phone[k] = p
+    log("representatives with a phone:", len(rep_phone))
+
+    offices = {}
+    for _, r in orgs.iterrows():
+        org = clean(r["Organization Name"]); z = digits(r["Rep Zip"])[:5]
+        if not org or len(z) != 5: continue
+        key = (org.lower(), z)
+        o = offices.setdefault(key, {"org": org, "city": clean(r["Rep City"]), "state": clean(r["Rep State"]), "zip": z,
+                                     "phones": collections.Counter(), "main": fmt_phone(r["Org Phone"]), "reps": set()})
+        reg = digits(r["Registration Num"])
+        o["reps"].add(reg or clean(r["Representative"]))
+        p = rep_phone.get(reg)
+        if p: o["phones"][p] += 1
 
     out = []
     for o in offices.values():
-        phone = o["phones"].most_common(1)[0][0] if o["phones"] else ""
-        out.append([o["org"], o["street"], o["city"], o["state"], o["zip"], phone, o["reps"]])
-    out.sort(key=lambda x: (x[3], x[2], x[0]))
+        if o["phones"]:
+            phone, is_main = o["phones"].most_common(1)[0][0], 0
+        else:
+            phone, is_main = (o["main"] if len(digits(o["main"])) >= 10 else ""), 1
+        out.append([o["org"], o["city"], o["state"], o["zip"], phone, len(o["reps"]), is_main])
+    out.sort(key=lambda x: (x[2], x[1], x[0]))
     today = datetime.date.today().isoformat()
-    data = {"asof": today, "source": "VA Office of General Counsel, accredited VSO representatives list", "fields": ["org", "street", "city", "state", "zip", "phone", "reps"], "offices": out}
+    data = {"asof": today,
+            "source": "VA Office of General Counsel accreditation lists (orgsexcellist.asp, repexcellist.asp)",
+            "fields": ["org", "city", "state", "zip", "phone", "reps", "phone_is_org_main_line"],
+            "offices": out}
     json.dump(data, open(OUT, "w"), separators=(",", ":"))
     log("offices:", len(out), "written to", OUT)
     log("sample:", out[0] if out else None)
-    open(LOG, "w").write(f"refreshed {today}\n" + "\n".join(log_lines) + "\n")
 
 if __name__ == "__main__":
     ok = False
