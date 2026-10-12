@@ -1,0 +1,7 @@
+attempted 2026-10-12
+downloaded 1346853 bytes, content-type: application/vnd.ms-excel
+format: html table
+rows: 8627
+columns: ['Last Name', 'First Name', 'Registration Num', 'City', 'State', 'Zip', 'Phone']
+mapping: {'org': None, 'street': None, 'city': 'City', 'state': 'State', 'zip': 'Zip', 'phone': 'Phone', 'last': 'Last Name'}
+ERROR: could not map organization/zip columns
