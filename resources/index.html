@@ -173,29 +173,22 @@
     items.push('<li><h3>National organizations, free, no membership needed</h3><p><a href="https://www.dav.org/veterans/find-your-local-office/">DAV</a>, <a href="https://www.vfw.org/assistance/va-claims-separation-benefits">VFW</a>, and the <a href="https://www.legion.org/serviceofficers">American Legion</a> all have accredited service officers who will file with you.</p></li>');
     list.innerHTML=items.join('');
     near.innerHTML=''; sub.textContent='';
-    if(REPS&&REPS.reps){
-      // REPS.reps rows: [name, org, street, city, state, zip, phone, email]
-      var offices={}, i, r, z, c;
-      for(i=0;i<REPS.reps.length;i++){
-        r=REPS.reps[i]; z=ZIPS[String(r[5]).slice(0,5)]; if(!z) continue;
-        c=z.split('|'); var d=dist(lat,lon,+c[0],+c[1]);
-        var key=(r[1]+'|'+r[2]+'|'+r[5]).toLowerCase();
-        if(!offices[key]) offices[key]={d:d,org:r[1],street:r[2],city:r[3],st:r[4],zip:r[5],reps:[]};
-        offices[key].reps.push(r);
+    if(REPS&&REPS.offices){
+      // offices rows: [org, street, city, state, zip, phone, reps]
+      var found=[], i, o, z, c;
+      for(i=0;i<REPS.offices.length;i++){
+        o=REPS.offices[i]; z=ZIPS[o[4]]; if(!z) continue;
+        c=z.split('|'); found.push({d:dist(lat,lon,+c[0],+c[1]),o:o});
       }
-      var arr=Object.keys(offices).map(function(k){return offices[k];}).sort(function(a,b){return a.d-b.d;}).slice(0,3);
-      if(arr.length){
-        sub.textContent='The three nearest offices with a VA-accredited VSO representative, from the VA accreditation list (updated '+REPS.asof+'). Call before you drive.';
-        near.innerHTML=arr.map(function(o){
-          var reps=o.reps.slice(0,4).map(function(r){
-            var bits=[esc(r[0])];
-            if(r[6]) bits.push('<a href="'+tel(r[6])+'">'+esc(r[6])+'</a>');
-            if(r[7]) bits.push('<a href="mailto:'+esc(r[7])+'">'+esc(r[7])+'</a>');
-            return '<li>'+bits.join(' &middot; ')+'</li>';
-          }).join('');
-          var more=o.reps.length>4?'<p class="note" style="margin:6px 0 0">'+(o.reps.length-4)+' more at this office.</p>':'';
-          var addr=[o.street,o.city+(o.st?', '+o.st:'')+' '+o.zip].filter(Boolean).join(', ');
-          return '<li><h3>'+esc(o.org)+'</h3><p class="num" style="font-size:17px;font-family:var(--serif);font-weight:400;color:var(--ink-2)">'+esc(addr)+' &middot; '+o.d.toFixed(0)+' mi</p><ul class="reps">'+reps+'</ul>'+more+'</li>';
+      found.sort(function(a,b){return a.d-b.d;});
+      var top=found.slice(0,3);
+      if(top.length){
+        sub.textContent='The three nearest offices with a VA-accredited VSO representative, from the VA accreditation list as of '+REPS.asof+'. Call before you drive; hours and walk-in rules vary.';
+        near.innerHTML=top.map(function(x){
+          var o=x.o, addr=[o[1],o[2]+(o[3]?', '+o[3]:'')+' '+o[4]].filter(Boolean).join(', ');
+          var phone=o[5]?'<a href="'+tel(o[5])+'">'+esc(o[5])+'</a>':'No phone listed; use the VA directory below.';
+          var reps=o[6]+' accredited representative'+(o[6]==1?'':'s');
+          return '<li><h3>'+esc(o[0])+'</h3><p class="num">'+phone+'</p><p>'+esc(addr)+' &middot; about '+Math.round(x.d)+' miles &middot; '+reps+'</p></li>';
         }).join('');
       }
     }
@@ -206,7 +199,7 @@
     var zip=f.zip.value.trim(); if(!/^[0-9]{5}$/.test(zip)){status.className='form-status err';status.textContent='Enter a five-digit ZIP code.';return;}
     status.className='form-status'; status.textContent='Looking it up…';
     var loads=[ZIPS?Promise.resolve(ZIPS):getJSON('/data/zips.json').then(function(j){ZIPS=j;return j;})];
-    if(!REPS&&!NOREPS) loads.push(getJSON('/data/vso-reps.json').then(function(j){REPS=j;},function(){NOREPS=true;}));
+    if(!REPS&&!NOREPS) loads.push(getJSON('/data/vso-offices.json').then(function(j){REPS=j;},function(){NOREPS=true;}));
     Promise.all(loads).then(function(){
       status.textContent='';
       var row=ZIPS[zip]; if(!row){status.className='form-status err';status.textContent='That ZIP code is not in our table. Try a nearby one, or use the VA directory below.';return;}

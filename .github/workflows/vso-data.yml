@@ -1,0 +1,35 @@
+name: Refresh VSO office list
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 9 1 * *"   # the 1st of every month, 09:17 UTC
+  push:
+    paths:
+      - "scripts/vso_data.py"
+      - ".github/workflows/vso-data.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests pandas lxml openpyxl xlrd
+      - run: python scripts/vso_data.py
+      - name: Commit the refreshed list
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/vso-offices.json data/vso-offices.log.txt
+          if git diff --cached --quiet; then
+            echo "No change."
+          else
+            git commit -m "Refresh VSO office list from the VA accreditation data"
+            git push
+          fi
