@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tell your story: Phantom Soldier</title>
+<meta name="description" content="Send the story you want told. A real person reads it and writes you back. If it becomes a song, you approve every word, and your name is never on it.">
+<link rel="canonical" href="https://phantomsoldier.org/tell-your-story/">
+<meta property="og:title" content="Tell your story: Phantom Soldier">
+<meta property="og:description" content="Send the story you want told. A real person reads it and writes you back. If it becomes a song, you approve every word, and your name is never on it.">
+<meta property="og:image" content="https://phantomsoldier.org/art/hard-to-break.jpg">
+<meta property="og:url" content="https://phantomsoldier.org/tell-your-story/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjMEYxRTJEIi8+PHBhdGggZD0iTTE2IDUuMmwzLjM1IDguMyA4Ljk1LjU1LTYuOTUgNS42NSAyLjMgOC43TDE2IDIzLjVsLTcuNjUgNC45IDIuMy04LjdMMy43IDE0LjA1bDguOTUtLjU1eiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPgo=">
+<meta name="theme-color" content="#0F1E2D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/site.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="row">
+    <a class="brand" href="/" aria-label="Phantom Soldier, home">
+      <svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6l2.9 7.2 7.7.5-6 4.9 2 7.5-6.6-4.3-6.6 4.3 2-7.5-6-4.9 7.7-.5z"/></svg>
+      Phantom Soldier
+    </a>
+    <nav class="nav" aria-label="Site">
+      <a href="/music/">Music</a>
+      <a href="/stories/">Stories</a>
+      <a href="/how-it-works/">How it works</a>
+      <a href="/tell-your-story/" class="on" aria-current="page">Tell your story</a>
+      <a href="/resources/">Resources</a>
+    </nav>
+  </div>
+</header>
+<section class="page-head">
+  <div class="wide">
+    <h1>Tell your story</h1>
+    <p class="lead">Two things are required: an email so we can reach you, and the story. Everything else is optional.</p>
+  </div>
+</section>
+
+<!-- ================= SUBMIT ================= -->
+<section class="band" id="submit">
+  <div class="wide">
+    <div class="two">
+      <div>
+        <div id="intake">
+          <form id="storyForm" class="form-card" style="margin-top:0" action="https://formspree.io/f/xlgyrkra" method="POST">
+            <input type="hidden" name="_subject" value="Phantom Soldier: new story submission">
+            <div class="hp"><label for="hp_field">Leave this empty</label><input id="hp_field" type="text" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+
+            <div class="field">
+              <label for="email">Your email <span class="req">*</span></label>
+              <input id="email" type="email" name="email" required autocomplete="email">
+            </div>
+
+            <div class="field">
+              <label for="story">Your story <span class="req">*</span>
+                <span class="hint">Write it however it comes out. One moment beats a whole deployment: the hour, the conversation, the drive back. It doesn't have to be combat, and it doesn't need to be finished.</span>
+              </label>
+              <textarea id="story" name="story" required></textarea>
+            </div>
+
+            <div class="field">
+              <label for="preference">If it becomes a song</label>
+              <select id="preference" name="preference">
+                <option>Publish it under Phantom Soldier</option>
+                <option>Keep it private and send me the MP3</option>
+                <option>Not sure yet, we can talk about it</option>
+              </select>
+            </div>
+
+            <details class="more">
+              <summary>Add more about you or the story (optional)</summary>
+              <div class="field">
+                <label for="name">Your name
+                  <span class="hint">Just so we know who we're talking to. Your name never goes on a published song.</span>
+                </label>
+                <input id="name" type="text" name="name" autocomplete="name">
+              </div>
+              <div class="field">
+                <label for="branch">Branch of service</label>
+                <select id="branch" name="branch">
+                  <option value="">Prefer not to say</option>
+                  <option>Army</option>
+                  <option>Marine Corps</option>
+                  <option>Navy</option>
+                  <option>Air Force</option>
+                  <option>Space Force</option>
+                  <option>Coast Guard</option>
+                  <option>National Guard</option>
+                  <option>Reserve</option>
+                  <option>Family member of a veteran or service member</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="era">Years or era of service
+                  <span class="hint">However you'd say it. "OIF, 04 to 06" is fine.</span>
+                </label>
+                <input id="era" type="text" name="era">
+              </div>
+              <div class="field">
+                <label for="dedication">Who is this for?
+                  <span class="hint">A person, a unit, a family, and what you'd want said about them.</span>
+                </label>
+                <input id="dedication" type="text" name="dedication">
+              </div>
+              <div class="field">
+                <label for="line">A line or phrase you want in it
+                  <span class="hint">Something that was actually said, or a phrase you can't shake.</span>
+                </label>
+                <input id="line" type="text" name="line">
+              </div>
+            </details>
+
+            <div class="check">
+              <input id="consent" type="checkbox" name="consent" value="Yes, understood and agreed" required>
+              <span>I'm sending this so it can be considered for a song. I understand not every story becomes one, that nothing gets recorded or released until I've seen it and said yes, and that I can stop it at any point before release. <span class="req">*</span></span>
+            </div>
+
+            <div class="check">
+              <input id="clean" type="checkbox" name="clean" value="Yes, confirmed" required>
+              <span>This contains nothing classified, and no details that identify someone who hasn't agreed to be in it. <span class="req">*</span></span>
+            </div>
+
+            <button class="btn" type="submit" id="submitBtn">Send my story</button>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+
+          <p class="note" style="margin:22px 0 0">Rather not use a form? Email it to <a href="mailto:Project.Veteran.Overwatch@gmail.com">Project.Veteran.Overwatch@gmail.com</a>.</p>
+        </div>
+
+        <div id="thanks">
+          <div class="thanks-card">
+            <h2>It came through. Thank you.</h2>
+            <p style="margin-top:14px">Your story is in. You'll get a reply at the email you gave, usually within a few days. Nothing happens with it until we've talked it through, and nothing gets recorded or released until you've read every word and said yes.</p>
+            <p style="margin:0">That took something to send. Take the rest of the day easy.</p>
+          </div>
+          <div class="crisis" style="margin-top:24px">
+            <p class="big">If today got heavy: dial 988, then press 1.</p>
+            <p>Veterans Crisis Line. Text <strong>838255</strong>. In an emergency, call <strong>911</strong>.</p>
+            <p class="note">Free, confidential, and staffed 24/7 for veterans, service members, and their families. You don't need to be enrolled in VA care to use it.</p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="tips" aria-label="What helps">
+        <h3>What makes a story easy to write from</h3>
+        <p class="note">You don't have to write well. That part is on us. What helps is detail.</p>
+        <ul>
+          <li>One moment beats a whole deployment. The hour, the conversation, the drive back.</li>
+          <li>If the song is for somebody, tell us who they were.</li>
+          <li>Include the thing that stuck. A smell, a song on the radio, a phrase somebody used. That's usually where the song is hiding.</li>
+          <li>It doesn't have to be combat. Coming home is a story. So is a good chief, a bad year, or the day you took the uniform off for the last time.</li>
+        </ul>
+        <h3>Your story stays yours</h3>
+        <ul>
+          <li>Nothing is published without your yes.</li>
+          <li>Private means private: you get the MP3 and it never goes out.</li>
+          <li>No veteran's name is ever attached to a published song.</li>
+          <li>You can stop it at any point before release, no reason required.</li>
+        </ul>
+        <p class="note">Two hard limits: nothing classified, and nothing that identifies someone who hasn't agreed to be in it. Not sure? Leave it out and say so. <a href="/how-it-works/">The rest of the fine print</a></p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wide">
+    <div class="foot">
+      <div>
+        <h3>Phantom Soldier</h3>
+        <p>Veteran stories, told as songs. You tell the story you want told. If it becomes one, it's released under Phantom Soldier or kept private, just for you. No cost to the veteran, and everything the music earns is donated to veteran suicide prevention.</p>
+        <p style="margin:0"><a href="/music/">Music</a> &nbsp; <a href="/stories/">Stories</a> &nbsp; <a href="/how-it-works/">How it works</a> &nbsp; <a href="/tell-your-story/">Tell your story</a> &nbsp; <a href="/resources/">Resources</a> &nbsp; <a href="/print.html">Print flyers, posters, and cards</a></p>
+      </div>
+      <div>
+        <h3>Contact and share</h3>
+        <p><a href="mailto:Project.Veteran.Overwatch@gmail.com">Project.Veteran.Overwatch@gmail.com</a></p>
+        <p style="margin:0">Know a veteran with a story? Send them this site. That's the whole ask.</p>
+      </div>
+    </div>
+    <div class="foot-rule"></div>
+    <div class="legal">
+      <p><strong>Not medical, legal, or clinical advice.</strong> Nothing on this site has been reviewed by a doctor or clinician, and none of it is a substitute for care.</p>
+      <p><strong>Status:</strong> not yet a registered 501(c)(3). Runs on a non-profit basis; not soliciting donations; contributions are not tax-deductible.</p>
+      <p><strong>Veterans Crisis Line:</strong> dial 988, then press 1. Text 838255. In an emergency, call 911.</p>
+      <p style="margin:18px 0 0">Phantom Soldier. Founded by Mark Tompkins.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var form = document.getElementById('storyForm');
+  if(!form) return;
+  var status = document.getElementById('formStatus');
+  var btn = document.getElementById('submitBtn');
+  var intake = document.getElementById('intake');
+  var thanks = document.getElementById('thanks');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    status.className = 'form-status';
+    status.textContent = 'Sending…';
+    btn.disabled = true;
+
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(res){
+      if(res.ok){
+        intake.classList.add('off');
+        thanks.classList.add('on');
+        thanks.scrollIntoView({behavior:'smooth', block:'start'});
+      } else {
+        return res.json().then(function(d){
+          throw new Error((d && d.errors && d.errors[0] && d.errors[0].message) || 'Send failed');
+        });
+      }
+    }).catch(function(){
+      btn.disabled = false;
+      status.className = 'form-status err';
+      status.textContent = 'That didn’t send. Email it to Project.Veteran.Overwatch@gmail.com instead and it will get read.';
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -40,8 +40,14 @@
 -->
 <header class="masthead">
   <div class="row">
-    <a class="brand" href="/"><svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6l2.9 7.2 7.7.5-6 4.9 2 7.5-6.6-4.3-6.6 4.3 2-7.5-6-4.9 7.7-.5z"/></svg> Phantom Soldier</a>
-    <nav class="links" aria-label="Site"><a href="/stories/">Stories</a><a href="/">phantomsoldier.org</a></nav>
+    <a class="brand" href="/" aria-label="Phantom Soldier, home"><svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6l2.9 7.2 7.7.5-6 4.9 2 7.5-6.6-4.3-6.6 4.3 2-7.5-6-4.9 7.7-.5z"/></svg> Phantom Soldier</a>
+    <nav class="nav" aria-label="Site">
+      <a href="/music/">Music</a>
+      <a href="/stories/" class="on" aria-current="page">Stories</a>
+      <a href="/how-it-works/">How it works</a>
+      <a href="/tell-your-story/">Tell your story</a>
+      <a href="/resources/">Resources</a>
+    </nav>
   </div>
 </header>
 <main class="song">
@@ -135,12 +141,36 @@
 
   <div class="about">
     <p>Every song on this site started as one true thing a veteran handed over. No names go on the songs, ever. If you've got a story, it costs nothing, you approve every word, and everything the music earns goes to veteran suicide prevention.</p>
-    <p style="margin:0"><a class="btn" href="/#submit">Tell your story</a></p>
+    <p style="margin:0"><a class="btn" href="/tell-your-story/">Tell your story</a></p>
   </div>
 
   <p class="crisis"><strong>Veterans Crisis Line: dial 988, then press 1.</strong> Text 838255. Free, confidential, 24/7, for veterans, service members, and their families.</p>
   </div>
 </main>
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wide">
+    <div class="foot">
+      <div>
+        <h3>Phantom Soldier</h3>
+        <p>Veteran stories, told as songs. You tell the story you want told. If it becomes one, it's released under Phantom Soldier or kept private, just for you. No cost to the veteran, and everything the music earns is donated to veteran suicide prevention.</p>
+        <p style="margin:0"><a href="/music/">Music</a> &nbsp; <a href="/stories/">Stories</a> &nbsp; <a href="/how-it-works/">How it works</a> &nbsp; <a href="/tell-your-story/">Tell your story</a> &nbsp; <a href="/resources/">Resources</a> &nbsp; <a href="/print.html">Print flyers, posters, and cards</a></p>
+      </div>
+      <div>
+        <h3>Contact and share</h3>
+        <p><a href="mailto:Project.Veteran.Overwatch@gmail.com">Project.Veteran.Overwatch@gmail.com</a></p>
+        <p style="margin:0">Know a veteran with a story? Send them this site. That's the whole ask.</p>
+      </div>
+    </div>
+    <div class="foot-rule"></div>
+    <div class="legal">
+      <p><strong>Not medical, legal, or clinical advice.</strong> Nothing on this site has been reviewed by a doctor or clinician, and none of it is a substitute for care.</p>
+      <p><strong>Status:</strong> not yet a registered 501(c)(3). Runs on a non-profit basis; not soliciting donations; contributions are not tax-deductible.</p>
+      <p><strong>Veterans Crisis Line:</strong> dial 988, then press 1. Text 838255. In an emergency, call 911.</p>
+      <p style="margin:18px 0 0">Phantom Soldier. Founded by Mark Tompkins.</p>
+    </div>
+  </div>
+</footer>
 <script>
 (function(){
   var f=document.querySelector('form.picker');if(!f)return;
