@@ -49,7 +49,18 @@ def clean(v):
     s = str(v).strip()
     return "" if s.lower() in ("nan", "none", "null") else re.sub(r"\s+", " ", s)
 
+ORG_URL = "https://www.va.gov/ogc/apps/accreditation/orgsexcellist.asp"
+
+def probe(url):
+    r = requests.get(url, headers=UA, timeout=120); r.raise_for_status()
+    df = load_table(r.content); df.columns = [clean(c) for c in df.columns]
+    log("PROBE", url, "rows:", len(df), "columns:", list(df.columns))
+    for i in range(min(3, len(df))):
+        log("  row", i, [clean(v) for v in df.iloc[i].tolist()])
+    return df
+
 def main():
+    probe(ORG_URL)
     r = requests.get(URL, headers=UA, timeout=120)
     r.raise_for_status()
     raw = r.content
