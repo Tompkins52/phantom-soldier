@@ -190,3 +190,12 @@ footer a{color:#fff}
   .foot{grid-template-columns:1.4fr 1fr}
 }
 @media print{ footer{display:none!important} }
+
+/* skip link + share (same as site.css) */
+.skip{position:absolute;left:-9999px;top:8px;z-index:50;background:var(--navy);color:#fff;font-family:var(--sans);font-weight:600;padding:10px 14px;border-radius:8px;text-decoration:none}
+.skip:focus{left:12px;outline:3px solid var(--red)}
+.share{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-weight:600;font-size:16px;padding:11px 16px;border-radius:8px;border:1.5px solid #C4C8C0;background:#fff;color:var(--ink);cursor:pointer}
+.share:hover{border-color:var(--navy)}
+.share svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.share-status{font-family:var(--sans);font-size:15px;color:var(--muted);margin:8px 0 0;min-height:20px}
+.share-row{margin:18px 0 0}

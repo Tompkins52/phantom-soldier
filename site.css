@@ -310,3 +310,17 @@ footer a{color:#fff}
 .me .sig span{font-family:var(--serif);font-weight:400;font-size:16.5px;color:var(--muted)}
 .btn.ghost-dark{background:transparent;color:var(--ink);border-color:#C4C8C0}
 .btn.ghost-dark:hover{background:#fff;color:var(--ink);border-color:var(--navy)}
+
+/* skip link */
+.skip{position:absolute;left:-9999px;top:8px;z-index:50;background:var(--navy);color:#fff;font-family:var(--sans);font-weight:600;padding:10px 14px;border-radius:8px;text-decoration:none}
+.skip:focus{left:12px;outline:3px solid var(--red)}
+
+/* who's behind this teaser */
+.band.quote-band p.eyebrow{font-family:var(--sans);font-weight:600;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:#E0394A;margin:0 0 12px}
+.band.quote-band p.big-quote{font-family:var(--sans);font-weight:600;font-size:clamp(24px,3.6vw,34px);line-height:1.18;color:#fff;margin:0;max-width:32ch;text-wrap:balance}
+
+/* share */
+.share{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-weight:600;font-size:16px;padding:11px 16px;border-radius:8px;border:1.5px solid #C4C8C0;background:#fff;color:var(--ink);cursor:pointer}
+.share:hover{border-color:var(--navy)}
+.share svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.share-status{font-family:var(--sans);font-size:15px;color:var(--muted);margin:8px 0 0;min-height:20px}

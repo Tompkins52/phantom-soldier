@@ -8,10 +8,13 @@
 <link rel="canonical" href="https://phantomsoldier.org/about/">
 <meta property="og:title" content="Who's behind this: Phantom Soldier">
 <meta property="og:description" content="One Army veteran, a day job, and no plan. The honest version of why Phantom Soldier exists, from the person who started it.">
-<meta property="og:image" content="https://phantomsoldier.org/art/hard-to-break.jpg">
+<meta property="og:image" content="https://phantomsoldier.org/art/og-home.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:url" content="https://phantomsoldier.org/about/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjMEYxRTJEIi8+PHBhdGggZD0iTTE2IDUuMmwzLjM1IDguMyA4Ljk1LjU1LTYuOTUgNS42NSAyLjMgOC43TDE2IDIzLjVsLTcuNjUgNC45IDIuMy04LjdMMy43IDE0LjA1bDguOTUtLjU1eiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPgo=">
 <meta name="theme-color" content="#0F1E2D">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,6 +23,7 @@
 <link rel="stylesheet" href="/site.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="masthead">
   <div class="row">
     <a class="brand" href="/" aria-label="Phantom Soldier, home">
@@ -36,6 +40,7 @@
     </nav>
   </div>
 </header>
+<main id="main">
 <section class="page-head">
   <div class="wrap">
     <h1>Who's behind this</h1>
@@ -48,7 +53,7 @@
     <div class="me">
       <p>I started this because of my own stuff. Depression, suicidal thoughts, the manic stretches, all of it. Until about five years ago I didn't believe any of that was the real problem. It was.</p>
 
-      <p>So far, every song on here is mine. I wasn't going to ask anybody for their story until I'd gone first.</p>
+      <p>The songs so far are built from my own experience and from what I've learned from other veterans, put into one song so more people can relate. You won't find whose story a song came from anywhere on this site. That's the rule for everybody.</p>
 
       <p>Here's what I noticed when people heard them. A civilian listens and it's just another song. A veteran listens and you can see it land. That's the connection: we all know what we're not talking about. The VA has built a lot of real resources, and they matter. But sometimes it's veterans who need to help veterans.</p>
 
@@ -61,6 +66,10 @@
       <p>I'm here for anybody who's willing to take the help. All I ask is that you share it. If it helped you, it might help somebody else.</p>
 
       <p class="sig">Mark Tompkins<br><span>Army veteran. Founder, Phantom Soldier.</span></p>
+      <div class="share-row" style="margin-top:26px">
+        <button class="share" type="button" data-share-title="Who's behind Phantom Soldier" data-share-url="https://phantomsoldier.org/about/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg> Share this page</button>
+        <p class="share-status" role="status" aria-live="polite"></p>
+      </div>
     </div>
 
     <div class="crisis" style="margin-top:40px">
@@ -81,6 +90,7 @@
   </div>
 </section>
 
+</main>
 <!-- ================= FOOTER ================= -->
 <footer>
   <div class="wide">
@@ -106,5 +116,17 @@
   </div>
 </footer>
 
+<script>
+(function(){
+  var b=document.querySelector('.share');if(!b)return;
+  var st=document.querySelector('.share-status');
+  b.addEventListener('click',function(){
+    var d={title:b.getAttribute('data-share-title'),url:b.getAttribute('data-share-url')};
+    if(navigator.share){navigator.share(d).catch(function(){});return;}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(d.url).then(function(){st.textContent='Link copied: '+d.url;},function(){st.textContent=d.url;});}
+    else{st.textContent=d.url;}
+  });
+})();
+</script>
 </body>
 </html>

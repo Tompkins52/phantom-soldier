@@ -24,6 +24,7 @@
   "sameAs": ["https://open.spotify.com/track/49rhVBxgcvxZcR49DWossU"]
 }
 </script>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSIjMEYxRTJEIi8+PHBhdGggZD0iTTE2IDUuMmwzLjM1IDguMyA4Ljk1LjU1LTYuOTUgNS42NSAyLjMgOC43TDE2IDIzLjVsLTcuNjUgNC45IDIuMy04LjdMMy43IDE0LjA1bDguOTUtLjU1eiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPgo=">
 <meta name="theme-color" content="#0F1E2D">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,6 +33,7 @@
 <link rel="stylesheet" href="/song.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <!--
   Song page with the story behind the song. Styles live in /song.css.
   To make one for a new single: copy this folder, rename it to the song's slug, then change the
@@ -55,7 +57,7 @@
     </nav>
   </div>
 </header>
-<main class="song">
+<main class="song" id="main">
   <div class="side">
   <img class="cover" src="../art/hard-to-break.jpg" width="1200" height="1200" alt="Cover art for Hard to Break: a handprint pressed into cracked concrete">
   <h1>Hard to Break</h1>
@@ -72,6 +74,10 @@
 
   <iframe class="player" title="Play Hard to Break on Spotify" src="https://open.spotify.com/embed/track/49rhVBxgcvxZcR49DWossU?utm_source=generator&amp;theme=0" height="152" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 
+  <div class="share-row">
+    <button class="share" type="button" data-share-title="Hard to Break by Phantom Soldier" data-share-url="https://phantomsoldier.org/hard-to-break/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg> Share this page</button>
+    <p class="share-status" role="status" aria-live="polite"></p>
+  </div>
   </div>
 
   <div class="body">
@@ -160,6 +166,18 @@
 (function(){
   var f=document.querySelector('form.picker');if(!f)return;
   f.addEventListener('submit',function(e){var s=f.querySelector('select');if(s&&s.value){e.preventDefault();location.href=s.value;}});
+})();
+</script>
+<script>
+(function(){
+  var b=document.querySelector('.share');if(!b)return;
+  var st=document.querySelector('.share-status');
+  b.addEventListener('click',function(){
+    var d={title:b.getAttribute('data-share-title'),url:b.getAttribute('data-share-url')};
+    if(navigator.share){navigator.share(d).catch(function(){});return;}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(d.url).then(function(){st.textContent='Link copied: '+d.url;},function(){st.textContent=d.url;});}
+    else{st.textContent=d.url;}
+  });
 })();
 </script>
 </body>
