@@ -1,12 +1,6 @@
-attempted 2026-10-12
-format: html table
-PROBE https://www.va.gov/ogc/apps/accreditation/orgsexcellist.asp rows: 18656 columns: ['Organization Name', 'POA', 'Org Phone', 'Org City', 'Org State', 'Representative', 'Rep City', 'Rep State', 'Rep Zip', 'Registration Num']
-  row 0 ['African American PTSD Association', "'091", '253-300-8168', 'Lakewood', 'WA', 'Anderson, Edgar B', 'Hazel Crest', 'IL', "'60429", '8239']
-  row 1 ['African American PTSD Association', "'091", '253-300-8168', 'Lakewood', 'WA', 'Anderson, Victoria C', 'Hazel Crest', 'IL', "'60429", '24028']
-  row 2 ['African American PTSD Association', "'091", '253-300-8168', 'Lakewood', 'WA', 'Berry, Joe E', 'Hazel Crest', 'IL', "'60429", '53299']
-downloaded 1346853 bytes, content-type: application/vnd.ms-excel
-format: html table
-rows: 8627
-columns: ['Last Name', 'First Name', 'Registration Num', 'City', 'State', 'Zip', 'Phone']
-mapping: {'org': None, 'street': None, 'city': 'City', 'state': 'State', 'zip': 'Zip', 'phone': 'Phone', 'last': 'Last Name'}
-ERROR: could not map organization/zip columns
+refreshed 2026-10-12
+downloaded orgsexcellist.asp 4674656 bytes, 18656 rows, columns: ['Organization Name', 'POA', 'Org Phone', 'Org City', 'Org State', 'Representative', 'Rep City', 'Rep State', 'Rep Zip', 'Registration Num']
+downloaded repexcellist.asp 1346853 bytes, 8627 rows, columns: ['Last Name', 'First Name', 'Registration Num', 'City', 'State', 'Zip', 'Phone']
+representatives with a phone: 6342
+offices: 7552 written to data/vso-offices.json
+sample: ['American Legion', 'Heilbronn', '', '74081', '0114964170581837', 1, 0]
