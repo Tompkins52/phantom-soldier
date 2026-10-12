@@ -1,6 +1,6 @@
 refreshed 2026-10-12
 downloaded orgsexcellist.asp 4674656 bytes, 18656 rows, columns: ['Organization Name', 'POA', 'Org Phone', 'Org City', 'Org State', 'Representative', 'Rep City', 'Rep State', 'Rep Zip', 'Registration Num']
 downloaded repexcellist.asp 1346853 bytes, 8627 rows, columns: ['Last Name', 'First Name', 'Registration Num', 'City', 'State', 'Zip', 'Phone']
-representatives with a phone: 6342
-offices: 7552 written to data/vso-offices.json
-sample: ['American Legion', 'Heilbronn', '', '74081', '0114964170581837', 1, 0]
+representatives with a phone: 6303
+offices: 4201 written to data/vso-offices.json
+sample: ['American Legion', 'Anchorage', 'AK', '99504', '907-257-4802', '9072574802', 2, 0, 'American Legion']
