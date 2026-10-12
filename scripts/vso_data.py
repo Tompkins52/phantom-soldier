@@ -97,10 +97,15 @@ def main():
     open(LOG, "w").write(f"refreshed {today}\n" + "\n".join(log_lines) + "\n")
 
 if __name__ == "__main__":
+    ok = False
     try:
-        main()
+        main(); ok = True
+    except SystemExit:
+        pass
     except Exception as e:
         import traceback
         log("FAILED:", repr(e)); log(traceback.format_exc())
-        open(LOG, "w").write(f"attempted {datetime.date.today().isoformat()}\n" + "\n".join(log_lines) + "\n")
-        sys.exit(1)
+    finally:
+        stamp = ("refreshed " if ok else "attempted ") + datetime.date.today().isoformat()
+        open(LOG, "w").write(stamp + "\n" + "\n".join(log_lines) + "\n")
+    sys.exit(0 if ok else 1)
