@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phantom Soldier: I Can't See the Glass flyer</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<!--FONTS-->
+<style>
+  :root{--ink:#1A2027;--ink-2:#3B454D;--muted:#6B746F;--rule:#D3D6CF;--red:#9E1B32;--navy:#0F1E2D;--navy-text:#D6DEE7;
+    --sans:'IBM Plex Sans Condensed','Arial Narrow',Arial,sans-serif;--serif:'IBM Plex Serif',Georgia,serif}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:#DADBD6;color:var(--ink);font-family:var(--serif);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  h1,h2,h3{font-family:var(--sans);margin:0;line-height:1}
+  .toolbar{max-width:8.5in;margin:0 auto;padding:14px 16px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-family:var(--sans);font-size:16px}
+  .toolbar button{font:600 16px var(--sans);background:var(--red);color:#fff;border:0;border-radius:8px;padding:12px 20px;cursor:pointer}
+  .toolbar p{margin:0;color:var(--ink-2)}
+  .toolbar a{color:var(--red)}
+  @page{size:letter;margin:0}
+  @media print{body{background:#fff}.toolbar{display:none}.page{box-shadow:none;margin:0}}
+  .page{background:#fff;width:8.5in;height:11in;margin:0 auto 20px;position:relative;overflow:hidden;box-shadow:0 10px 30px -14px rgba(0,0,0,.5)}
+  .top{background:var(--navy);color:#fff;height:4.7in;padding:.4in .55in .3in;position:relative}
+  .wm{font-family:var(--sans);font-weight:700;font-size:15px;letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:8px;margin:0}
+  .wm svg{width:14px;height:14px;fill:#E0394A}
+  .new{position:absolute;right:.55in;top:.43in;font-family:var(--sans);font-weight:600;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:#E0394A}
+  .hero{display:grid;grid-template-columns:3.1in 1fr;gap:.4in;align-items:center;margin-top:.24in}
+  .cover{width:3.1in;height:3.1in;display:block;border-radius:10px;box-shadow:0 20px 50px -22px rgba(0,0,0,.9)}
+  h1{font-size:64px;font-weight:700;letter-spacing:-.01em;line-height:.95;color:#fff}
+  .by{font-family:var(--sans);font-weight:600;font-size:18px;color:var(--navy-text);margin:.14in 0 0}
+  .hook{font-size:17.5px;line-height:1.45;color:var(--navy-text);margin:.2in 0 0;max-width:30ch}
+  .plat{font-family:var(--sans);font-weight:600;font-size:13.5px;color:#fff;margin:.2in 0 0;letter-spacing:.01em;white-space:nowrap}
+  .plat span{color:#8E9DAC;margin:0 .06in}
+  .body{padding:.3in .55in .35in}
+  .draw{display:grid;grid-template-columns:1fr 1.55in;gap:.35in;align-items:start}
+  .draw h2{font-size:30px;font-weight:700;line-height:1.02}
+  .draw p{margin:.08in 0 0;font-size:14.5px;line-height:1.45;color:var(--ink-2);max-width:54ch}
+  .draw img{width:1.55in;display:block;border:1px solid var(--rule);border-radius:6px;background:#eee}
+  .codes{display:grid;grid-template-columns:repeat(3,1fr);gap:.26in;margin:.2in 0 0}
+  .code{border:1px solid var(--rule);border-radius:10px;padding:.16in .12in .14in;text-align:center}
+  .code svg{width:1.3in;height:1.3in;display:block;margin:0 auto .08in}
+  .code h3{font-size:17px;font-weight:600;line-height:1.1}
+  .code p{margin:3px 0 0;font-size:12.5px;color:var(--muted);line-height:1.3}
+  .url{font-family:var(--sans);font-weight:700;font-size:25px;text-align:center;margin:.16in 0 0;letter-spacing:-.005em}
+  .url small{display:block;font-family:var(--sans);font-weight:600;font-size:13.5px;color:var(--ink-2);letter-spacing:0;margin-top:3px}
+  .aw{height:5px;display:flex;margin:.16in 0 .1in}
+  .aw i{display:block;flex:1;height:100%}
+  .aw i:first-child{background:#2AA7A0}
+  .aw i:last-child{background:#7A5BB5}
+  .crisis{margin:0;font-size:13px;color:var(--ink-2);line-height:1.4;text-align:center}
+  .crisis strong{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button type="button" onclick="window.print()">Print</button>
+  <p>Letter size, one page. The codes open the song page (every platform, plus the drawing), the story form, and the VSO finder. <a href="../print.html">The other flyers and cards</a>.</p>
+</div>
+
+<section class="page">
+  <div class="top">
+    <p class="wm"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6l2.9 7.2 7.7.5-6 4.9 2 7.5-6.6-4.3-6.6 4.3 2-7.5-6-4.9 7.7-.5z"/></svg>Phantom Soldier</p>
+    <p class="new">New single &middot; Out now</p>
+    <div class="hero">
+      <img class="cover" src="../art/i-cant-see-the-glass.jpg" alt="Cover art: a pressure crack in dark glass">
+      <div>
+        <h1>I Can't See the Glass</h1>
+        <p class="by">Phantom Soldier &middot; October 2026</p>
+        <p class="hook">Glass walls on the path to getting better. You can't see them. You find out which ones break by hitting them.</p>
+        <p class="plat">Spotify <span>&middot;</span> Apple Music <span>&middot;</span> YouTube Music <span>&middot;</span> Amazon Music</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="draw">
+      <div>
+        <h2>It started as a drawing.</h2>
+        <p>One page: a path going up, lines across it, and a band of X's at the bottom. Every line is a wall of glass, and the thicker the line, the harder it is to break. The X's are where you land when one doesn't give. It's a picture of depression, and you don't have to be a veteran to recognize it. The whole drawing, next to the lines it turned into, is on the song's page.</p>
+      </div>
+      <img src="../art/glass-drawing.jpg" alt="The hand-drawn page the song came from">
+    </div>
+
+    <div class="codes">
+      <div class="code"><svg width="132" height="132" viewBox="0 0 132 132" shape-rendering="crispEdges" class="segno"><path transform="scale(4)" class="qrline" stroke="#1a2027" d="M0 0.5h7m3 0h3m3 0h1m2 0h3m1 0h1m2 0h7m-33 1h1m5 0h1m2 0h1m1 0h2m2 0h2m1 0h1m1 0h2m2 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m5 0h3m3 0h3m3 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h1m5 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h3m1 0h3m3 0h1m1 0h2m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h1m1 0h1m1 0h2m3 0h3m2 0h1m1 0h1m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h3m1 0h1m1 0h1m1 0h1m1 0h5m-23 1h1m1 0h5m3 0h2m1 0h2m2 0h3m2 0h2m2 0h5m-29 1h1m1 0h2m1 0h1m1 0h2m1 0h2m3 0h5m1 0h1m2 0h2m1 0h2m1 0h1m-33 1h3m1 0h1m1 0h2m1 0h1m3 0h5m2 0h1m3 0h2m2 0h1m1 0h1m-30 1h1m1 0h2m2 0h4m2 0h1m1 0h1m1 0h2m2 0h3m4 0h3m-31 1h4m2 0h1m3 0h1m3 0h1m1 0h1m2 0h2m1 0h4m2 0h2m1 0h1m-32 1h2m3 0h1m2 0h3m2 0h1m1 0h1m1 0h2m3 0h2m2 0h1m2 0h1m1 0h2m-33 1h3m1 0h3m1 0h1m2 0h2m2 0h3m2 0h3m2 0h2m2 0h3m-32 1h1m1 0h1m2 0h1m2 0h1m3 0h2m1 0h1m2 0h1m2 0h3m1 0h2m1 0h3m-29 1h3m1 0h3m3 0h2m1 0h1m1 0h1m4 0h1m1 0h2m1 0h3m2 0h1m-33 1h2m3 0h1m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h6m1 0h3m1 0h4m-33 1h2m2 0h3m2 0h4m1 0h3m1 0h1m7 0h3m1 0h2m-31 1h2m1 0h1m2 0h8m1 0h1m3 0h3m1 0h1m2 0h4m1 0h1m-32 1h6m1 0h1m2 0h2m1 0h1m3 0h1m5 0h2m1 0h3m1 0h2m-33 1h3m4 0h5m3 0h3m2 0h2m1 0h1m2 0h2m2 0h1m1 0h1m-33 1h1m1 0h2m1 0h4m1 0h1m1 0h2m3 0h1m1 0h1m9 0h1m1 0h1m-32 1h1m4 0h1m2 0h2m3 0h2m1 0h1m2 0h4m6 0h2m-31 1h1m2 0h1m1 0h3m3 0h3m3 0h1m1 0h1m2 0h7m-21 1h2m2 0h1m4 0h1m1 0h2m3 0h1m3 0h1m1 0h1m1 0h1m-33 1h7m2 0h2m1 0h6m4 0h3m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h1m1 0h1m2 0h1m2 0h3m1 0h5m3 0h4m-32 1h1m1 0h3m1 0h1m1 0h1m1 0h2m2 0h3m2 0h1m1 0h1m2 0h6m-30 1h1m1 0h3m1 0h1m1 0h1m2 0h3m1 0h1m2 0h1m5 0h2m2 0h5m-33 1h1m1 0h3m1 0h1m1 0h5m2 0h4m3 0h1m3 0h2m1 0h2m-31 1h1m5 0h1m2 0h1m1 0h1m1 0h3m2 0h1m2 0h2m2 0h1m2 0h3m-31 1h7m1 0h1m2 0h3m1 0h1m1 0h1m4 0h1m1 0h2m1 0h1m3 0h1"/></svg><h3>Listen</h3><p>Every platform, plus the drawing and the story behind the song.</p></div>
+      <div class="code"><svg width="132" height="132" viewBox="0 0 132 132" shape-rendering="crispEdges" class="segno"><path transform="scale(4)" class="qrline" stroke="#1a2027" d="M0 0.5h7m1 0h1m1 0h1m1 0h1m1 0h2m1 0h1m1 0h1m1 0h3m2 0h7m-33 1h1m5 0h1m2 0h2m2 0h1m1 0h1m2 0h1m1 0h2m1 0h1m2 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h5m2 0h1m2 0h1m1 0h1m2 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h2m4 0h3m2 0h2m2 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h7m1 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h1m1 0h1m1 0h1m1 0h2m1 0h1m1 0h2m1 0h1m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h1m2 0h2m1 0h1m2 0h1m3 0h1m-21 1h1m1 0h1m1 0h5m1 0h3m1 0h2m1 0h1m2 0h1m1 0h1m1 0h3m1 0h2m1 0h1m-32 1h1m3 0h1m2 0h1m1 0h1m2 0h3m1 0h1m2 0h2m2 0h4m3 0h2m-32 1h1m1 0h2m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m2 0h2m1 0h1m2 0h1m2 0h2m1 0h1m1 0h1m-33 1h1m1 0h1m1 0h2m2 0h1m2 0h1m1 0h3m2 0h9m1 0h2m1 0h1m-32 1h2m4 0h2m3 0h1m1 0h4m1 0h4m1 0h1m2 0h1m2 0h1m2 0h1m-28 1h1m2 0h2m1 0h3m2 0h1m1 0h1m5 0h1m1 0h1m1 0h1m2 0h2m-33 1h2m2 0h3m1 0h1m1 0h1m1 0h6m2 0h1m2 0h1m1 0h2m1 0h1m2 0h1m-32 1h1m2 0h1m5 0h2m4 0h1m2 0h1m1 0h5m1 0h1m1 0h2m1 0h1m-32 1h2m2 0h3m1 0h6m2 0h1m3 0h3m1 0h1m1 0h1m1 0h1m2 0h1m-29 1h1m1 0h1m1 0h2m3 0h2m1 0h2m4 0h4m2 0h1m1 0h1m-30 1h3m1 0h1m1 0h1m2 0h3m1 0h5m2 0h1m4 0h1m4 0h3m-33 1h1m1 0h1m2 0h1m2 0h1m3 0h1m3 0h3m1 0h4m1 0h1m1 0h1m3 0h2m-30 1h1m2 0h2m1 0h1m1 0h1m2 0h5m2 0h1m1 0h1m1 0h1m5 0h2m-31 1h4m1 0h1m2 0h1m2 0h1m4 0h1m2 0h1m2 0h1m1 0h1m3 0h3m-33 1h4m1 0h5m1 0h1m3 0h1m1 0h3m1 0h1m3 0h3m1 0h1m2 0h1m-32 1h1m1 0h2m3 0h3m2 0h3m3 0h8m2 0h1m-30 1h1m2 0h5m2 0h2m1 0h1m5 0h3m1 0h7m-22 1h2m3 0h2m2 0h1m1 0h2m1 0h3m3 0h2m2 0h1m-33 1h7m1 0h7m1 0h1m1 0h1m2 0h1m2 0h1m1 0h1m1 0h4m-32 1h1m5 0h1m1 0h1m4 0h1m5 0h4m1 0h1m3 0h1m2 0h2m-33 1h1m1 0h3m1 0h1m6 0h1m1 0h1m2 0h1m2 0h2m1 0h6m-30 1h1m1 0h3m1 0h1m1 0h2m2 0h4m6 0h1m3 0h1m1 0h2m1 0h1m-32 1h1m1 0h3m1 0h1m6 0h2m2 0h1m2 0h2m6 0h1m1 0h1m1 0h1m-33 1h1m5 0h1m1 0h2m4 0h1m1 0h4m1 0h1m1 0h2m1 0h1m-27 1h7m5 0h1m5 0h1m2 0h1m2 0h2m2 0h2m1 0h1"/></svg><h3>Tell your story</h3><p>It comes back as a song. Free, and your name is never on it.</p></div>
+      <div class="code"><svg width="116" height="116" viewBox="0 0 116 116" shape-rendering="crispEdges" class="segno"><path transform="scale(4)" class="qrline" stroke="#1a2027" d="M0 0.5h7m1 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-29 1h1m5 0h1m1 0h3m5 0h2m1 0h2m1 0h1m5 0h1m-29 1h1m1 0h3m1 0h1m1 0h7m1 0h1m1 0h1m3 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m2 0h1m1 0h1m1 0h2m2 0h1m4 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h2m4 0h1m1 0h1m1 0h2m2 0h1m1 0h3m1 0h1m-29 1h1m5 0h1m2 0h3m1 0h1m6 0h1m1 0h1m5 0h1m-29 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-20 1h1m1 0h3m2 0h1m2 0h1m-20 1h1m2 0h6m2 0h1m2 0h4m1 0h1m1 0h1m2 0h1m1 0h3m-29 1h1m1 0h1m1 0h2m1 0h4m1 0h1m2 0h1m3 0h1m1 0h1m1 0h2m1 0h2m-27 1h1m2 0h3m2 0h1m2 0h2m1 0h2m1 0h1m4 0h1m2 0h1m-27 1h4m4 0h1m2 0h2m2 0h4m3 0h1m2 0h1m2 0h1m-28 1h2m1 0h1m1 0h1m2 0h1m1 0h2m2 0h2m3 0h1m1 0h2m4 0h1m-27 1h1m5 0h4m1 0h1m1 0h2m1 0h1m3 0h7m-28 1h6m3 0h1m1 0h1m2 0h3m1 0h1m3 0h2m1 0h1m1 0h1m-26 1h3m1 0h6m2 0h2m4 0h1m2 0h1m1 0h1m1 0h1m-29 1h1m1 0h2m2 0h1m6 0h1m1 0h2m1 0h1m1 0h1m2 0h1m1 0h1m-26 1h1m1 0h1m1 0h2m2 0h6m1 0h1m2 0h3m3 0h1m1 0h2m-28 1h2m2 0h6m2 0h1m2 0h1m3 0h2m2 0h3m2 0h1m-29 1h4m3 0h5m1 0h1m2 0h1m2 0h1m1 0h1m3 0h2m-27 1h4m2 0h4m2 0h2m1 0h1m1 0h1m2 0h8m-20 1h1m5 0h2m4 0h1m3 0h2m-26 1h7m1 0h5m1 0h3m1 0h3m1 0h1m1 0h2m-26 1h1m5 0h1m1 0h4m3 0h1m1 0h4m3 0h1m2 0h2m-29 1h1m1 0h3m1 0h1m1 0h2m2 0h3m1 0h1m2 0h7m1 0h1m-28 1h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h4m1 0h1m2 0h1m6 0h1m-29 1h1m1 0h3m1 0h1m3 0h1m1 0h2m1 0h1m4 0h1m2 0h2m1 0h3m-29 1h1m5 0h1m2 0h3m1 0h1m1 0h2m5 0h1m1 0h3m1 0h1m-29 1h7m1 0h3m1 0h1m1 0h3m2 0h2m1 0h4"/></svg><h3>Find your local VSO</h3><p>Free help with VA claims. Type your ZIP, get the nearest offices.</p></div>
+    </div>
+
+    <p class="url">phantomsoldier.org<small>Veteran stories, told as songs. Everything the music earns goes to veteran suicide prevention.</small></p>
+    <div class="aw"><i></i><i></i></div>
+    <p class="crisis"><strong>Veterans Crisis Line: dial 988, then press 1.</strong> Text 838255. Free, confidential, 24/7, for veterans, service members, and their families.</p>
+  </div>
+</section>
+
+</body>
+</html>
