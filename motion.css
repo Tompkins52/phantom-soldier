@@ -109,3 +109,18 @@ body.has-radio{padding-bottom:96px}
   .radio-btn{width:38px;height:38px}
 }
 @media print{.radio{display:none!important}}
+
+/* ---------- the Glass cover: the cracks draw themselves once, then settle into the art ---------- */
+.cover-wrap{position:relative;max-width:360px;margin:0 auto}
+@media (min-width:900px){ main.song .cover-wrap{max-width:none;margin:0} }
+.cover-wrap .cover{max-width:none;margin:0}
+.crack{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;border-radius:var(--radius);display:none}
+@media (prefers-reduced-motion:no-preference){
+  .crack{display:block;animation:ps-crack-fade 1.4s ease 2.6s forwards}
+  .crack polyline,.crack path{fill:none;stroke:#fff;stroke-width:.45;stroke-linecap:round;stroke-linejoin:round;opacity:.9;
+    stroke-dasharray:1;stroke-dashoffset:1;animation:ps-crack-draw .9s cubic-bezier(.3,.8,.3,1) forwards;filter:drop-shadow(0 0 1px rgba(255,255,255,.8))}
+  .crack .flash{fill:#fff;opacity:0;transform-origin:69px 64px;animation:ps-flash .7s ease-out .25s}
+  @keyframes ps-crack-draw{to{stroke-dashoffset:0}}
+  @keyframes ps-crack-fade{to{opacity:0}}
+  @keyframes ps-flash{0%{opacity:0;transform:scale(.2)}20%{opacity:.95;transform:scale(1)}100%{opacity:0;transform:scale(6)}}
+}
