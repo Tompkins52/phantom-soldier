@@ -100,13 +100,36 @@
 .radio-hint{grid-column:1 / -1;font-size:13px;color:#AEBBC8;margin:0;line-height:1.3}
 .radio-hint:empty{display:none}
 body.has-radio{padding-bottom:96px}
-@media (max-width:480px){
-  .radio{grid-template-columns:40px minmax(0,1fr) auto auto auto;gap:8px;padding:8px 8px 8px 8px}
-  .radio .eq{display:none}
-  .radio-art{width:40px;height:40px}
-  .radio-t{font-size:14.5px}
+.radio-pill{display:none}
+.radio.collapsed{display:block;width:48px;height:48px;padding:0;border-radius:50%;left:auto;right:14px;transform:none;overflow:hidden;background:var(--navy);box-sizing:border-box}
+.radio.collapsed > *{display:none}
+.radio.collapsed .radio-pill{display:block;position:absolute;inset:0;border:0;background:transparent;padding:0;cursor:pointer}
+.radio-pill img{width:100%;height:100%;object-fit:cover;display:block;opacity:.85}
+.radio-pill .pill-glyph{position:absolute;inset:0;display:grid;place-items:center;color:#fff}
+.radio-pill .pill-glyph svg{width:20px;height:20px;fill:#fff;filter:drop-shadow(0 1px 3px rgba(0,0,0,.7))}
+@media (hover:hover){.radio.collapsed:hover{box-shadow:0 0 0 3px rgba(224,57,74,.5)}}
+/* the player and the progress line stay put while the rest of the page crossfades */
+.radio{view-transition-name:ps-radio}
+.progress{view-transition-name:ps-progress}
+
+/* phones: a thin strip pinned to the top, so it never sits on what you're reading */
+@media (max-width:700px){
+  .radio{top:0;bottom:auto;left:0;right:0;width:100%;height:44px;box-sizing:border-box;transform:none;border-radius:0;border-width:0 0 1px 0;padding:0 8px 0 10px;
+    grid-template-columns:26px minmax(0,1fr) auto auto auto;gap:8px;background:rgba(15,30,45,.97);box-shadow:0 6px 18px -10px rgba(0,0,0,.6)}
+  .radio-art{width:26px;height:26px;border-radius:5px}
+  .radio-k{font-size:9.5px;letter-spacing:.08em}
+  .radio-t{font-size:12.5px}
   .eq{display:none}
-  .radio-btn{width:38px;height:38px}
+  .radio-btn{width:30px;height:30px;border-width:1px}
+  .radio-btn svg{width:14px;height:14px}
+  .radio-x{width:26px;height:26px;font-size:18px}
+  .radio-bar{position:absolute;left:0;right:0;bottom:-1px;height:2px;margin:0;border-radius:0}
+  .radio-hint{display:none}
+  .radio.ready .radio-btn.play{animation:none;box-shadow:0 0 0 3px rgba(224,57,74,.45)}
+  body.has-radio{padding-bottom:0;padding-top:44px}
+  .radio.collapsed{top:6px;right:8px;left:auto;width:40px;height:40px;padding:0;border-radius:50%;border-width:1px}
+  body.has-radio .skip:focus{top:52px}
+  body.has-radio .progress{display:none}
 }
 @media print{.radio{display:none!important}}
 
@@ -123,4 +146,78 @@ body.has-radio{padding-bottom:96px}
   @keyframes ps-crack-draw{to{stroke-dashoffset:0}}
   @keyframes ps-crack-fade{to{opacity:0}}
   @keyframes ps-flash{0%{opacity:0;transform:scale(.2)}20%{opacity:.95;transform:scale(1)}100%{opacity:0;transform:scale(6)}}
+}
+
+/* ---------- more motion ---------- */
+@media (prefers-reduced-motion:no-preference){
+  /* the page arrives with a small lift as well as a fade */
+  ::view-transition-new(root){animation:ps-fade-in .22s ease both,ps-lift .34s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes ps-lift{from{transform:translateY(10px)}to{transform:none}}
+
+  /* a light passes over the hero now and then */
+  .hero .sweep{position:absolute;top:-20%;bottom:-20%;left:-60%;width:60%;pointer-events:none;mix-blend-mode:screen;
+    background:linear-gradient(100deg,transparent 35%,rgba(255,255,255,.09) 50%,transparent 65%);animation:ps-sweep 13s ease-in-out infinite}
+  @keyframes ps-sweep{0%,55%{transform:translateX(0)}100%{transform:translateX(300%)}}
+  .hero .dust{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen}
+
+  /* section headings underline themselves as they arrive */
+  .band .wrap > h2.rv::after,.band .wide > h2.rv::after,.story > h2.rv::after,.page-head h1.rv::after{content:"";display:block;width:0;height:4px;background:var(--red);margin-top:10px;border-radius:2px;transition:width .8s cubic-bezier(.2,.7,.2,1) .25s}
+  .band .wrap > h2.rv.in::after,.band .wide > h2.rv.in::after,.story > h2.rv.in::after,.page-head h1.rv.in::after{width:58px}
+  .band.navy h2.rv::after,.quote-band h2.rv::after{background:#E0394A}
+
+  /* the lyric side of each row on the Glass page lands a beat after the page side */
+  .map > div.rv dd{opacity:0;transform:translateX(12px);transition:opacity .6s ease .35s,transform .6s cubic-bezier(.2,.7,.2,1) .35s}
+  .map > div.rv.in dd{opacity:1;transform:none}
+
+  /* the thin flag stripe catches the light */
+  .ribbon{position:relative;overflow:hidden}
+  .ribbon::after{content:"";position:absolute;top:0;bottom:0;left:-30%;width:30%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);animation:ps-sheen 9s linear infinite}
+  @keyframes ps-sheen{0%{left:-30%}60%{left:130%}100%{left:130%}}
+
+  /* the star blinks awake, then keeps time with the music */
+  .brand .star{transform-origin:center;animation:ps-twinkle 2.2s ease-in-out .4s 1;transition:transform .08s linear}
+  @keyframes ps-twinkle{0%{transform:scale(1) rotate(0)}30%{transform:scale(1.35) rotate(-8deg)}55%{transform:scale(.95) rotate(4deg)}100%{transform:scale(1) rotate(0)}}
+  body.beat .brand .star{transform:scale(calc(1 + var(--beat,0) * .45))}
+  body.beat .radio-art{transform:scale(calc(1 + var(--beat,0) * .08))}
+  body.beat .radio{border-color:rgba(224,57,74,calc(.14 + var(--beat,0) * .6))}
+  body.beat main.song .cover,body.beat .feature .cover,body.beat .release .cover{box-shadow:0 18px 40px -18px rgba(26,32,39,.45),0 0 calc(var(--beat,0) * 46px) rgba(224,57,74,calc(var(--beat,0) * .32))}
+
+  /* cards and covers tilt toward the hand (desktop) */
+  .tilt{transform-style:preserve-3d;will-change:transform}
+  .cards a.tilt,.cover.tilt,.cover-wrap.tilt{transition:transform .22s ease,border-color .22s ease,box-shadow .12s linear}
+}
+
+/* ---------- more motion, part two ---------- */
+.progress{position:fixed;top:0;left:0;width:100%;height:3px;background:var(--red);transform-origin:0 50%;transform:scaleX(0);z-index:59;pointer-events:none}
+@media print{.progress{display:none!important}}
+@media (prefers-reduced-motion:no-preference){
+  /* the title arrives with its phantom, which fades back into it */
+  .hero .inner > h1{animation:ps-rise .8s cubic-bezier(.2,.7,.2,1) .05s forwards,ps-phantom 2.8s ease-out .7s 1}
+  @keyframes ps-phantom{0%{text-shadow:none}25%{text-shadow:10px 0 0 rgba(255,255,255,.16),-10px 0 0 rgba(224,57,74,.22)}100%{text-shadow:none}}
+  /* the wordmark settles into place */
+  .brand{animation:ps-settle 1.1s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes ps-settle{from{letter-spacing:.34em;opacity:0}to{letter-spacing:.14em;opacity:1}}
+  /* the main button breathes */
+  .hero .cta .btn{animation:ps-breathe 3.4s ease-in-out 1.2s infinite}
+  @keyframes ps-breathe{0%,100%{box-shadow:0 0 0 0 rgba(224,57,74,0)}50%{box-shadow:0 0 0 7px rgba(224,57,74,.22),0 10px 30px -8px rgba(224,57,74,.55)}}
+  /* navy bands glow red on the beat, like the hero */
+  .band.navy > .pulse{position:absolute;inset:0;pointer-events:none;background:radial-gradient(55% 65% at 28% 45%,rgba(224,57,74,.5),rgba(224,57,74,0) 70%);opacity:calc(var(--beat,0) * .12);transition:opacity .08s linear;mix-blend-mode:screen}
+  /* thumbnails drift closer under the hand */
+  .cards .thumb img{transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+  .cards a:hover .thumb img{transform:scale(1.1)}
+  /* a glare that follows the pointer across a tilted card or cover */
+  .cards a.tilt{position:relative}
+  .cards a.tilt::after,.cover-wrap.tilt::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s ease;
+    background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.16),rgba(255,255,255,0) 58%)}
+  .cards a.tilt:hover::after,.cover-wrap.tilt:hover::after{opacity:1}
+  .cover-wrap.tilt::after{border-radius:var(--radius)}
+  .hub .intro > h1.rv::after{content:"";display:block;width:0;height:4px;background:var(--red);margin-top:10px;border-radius:2px;transition:width .8s cubic-bezier(.2,.7,.2,1) .25s}
+  .hub .intro > h1.rv.in::after{width:58px}
+  /* VSO results step in one after another */
+  #vsoNear li,#vsoList li{animation:ps-up .55s cubic-bezier(.2,.7,.2,1) both}
+  #vsoNear li:nth-child(2),#vsoList li:nth-child(2){animation-delay:.08s}
+  #vsoNear li:nth-child(3),#vsoList li:nth-child(3){animation-delay:.16s}
+  #vsoNear li:nth-child(4),#vsoList li:nth-child(4){animation-delay:.24s}
+  #vsoNear li:nth-child(n+5),#vsoList li:nth-child(n+5){animation-delay:.3s}
+  @keyframes ps-up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 }

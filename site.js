@@ -19,11 +19,17 @@
     var hero = scope.querySelector('.hero');
     if (hero && !hero.querySelector('.grain')) {
       var pulse = doc.createElement('div'); pulse.className = 'pulse'; hero.appendChild(pulse);
+      var sw = doc.createElement('div'); sw.className = 'sweep'; hero.appendChild(sw);
+      dust(hero);
       var g = doc.createElement('div'); g.className = 'grain'; hero.appendChild(g);
     }
     scope.querySelectorAll('.band.navy').forEach(function (b) {
-      if (!b.querySelector('.grain')) { var g2 = doc.createElement('div'); g2.className = 'grain'; b.appendChild(g2); }
+      if (!b.querySelector('.grain')) {
+        var p2 = doc.createElement('div'); p2.className = 'pulse'; b.appendChild(p2);
+        var g2 = doc.createElement('div'); g2.className = 'grain'; b.appendChild(g2);
+      }
     });
+    tilt(scope);
     if (!('IntersectionObserver' in window)) return;
     if (!io) {
       io = new IntersectionObserver(function (entries) {
@@ -57,6 +63,85 @@
   }
   window.addEventListener('scroll', function () { if (!sweeping && pending.length) { sweeping = true; requestAnimationFrame(sweep); } }, { passive: true });
   window.addEventListener('resize', function () { if (!sweeping && pending.length) { sweeping = true; requestAnimationFrame(sweep); } });
+
+  // dust drifting up through the hero light; it brightens on the beat and only runs while the hero is on screen
+  var beatNow = 0;
+  function dust(hero) {
+    var c = doc.createElement('canvas'); c.className = 'dust'; c.setAttribute('aria-hidden', 'true');
+    var g = c.getContext && c.getContext('2d'); if (!g) return;
+    hero.appendChild(c);
+    var ps = [], W = 0, H = 0, on = false, req = 0, dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    function spawn(anywhere) {
+      return { x: Math.random() * W, y: anywhere ? Math.random() * H : H + 4, r: 0.6 + Math.random() * 1.5,
+        vy: 0.07 + Math.random() * 0.2, vx: (Math.random() - 0.5) * 0.1, a: 0.1 + Math.random() * 0.38,
+        p: Math.random() * 6.2832, s: 0.004 + Math.random() * 0.01 };
+    }
+    function size() {
+      W = hero.clientWidth; H = hero.clientHeight; if (!W || !H) return;
+      c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); c.style.width = W + 'px'; c.style.height = H + 'px';
+      g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var n = Math.round(Math.min(70, Math.max(24, W * H / 22000)));
+      while (ps.length < n) ps.push(spawn(true));
+      ps.length = n;
+    }
+    function frame() {
+      req = 0;
+      if (!on || !doc.contains(c)) return;
+      g.clearRect(0, 0, W, H); g.fillStyle = '#fff';
+      var glow = beatNow;
+      for (var i = 0; i < ps.length; i++) {
+        var q = ps[i];
+        q.p += q.s; q.y -= q.vy; q.x += q.vx + Math.sin(q.p) * 0.15;
+        if (q.y < -4 || q.x < -4 || q.x > W + 4) { ps[i] = q = spawn(false); }
+        g.globalAlpha = Math.min(1, q.a * (0.65 + 0.35 * Math.sin(q.p * 3)) * (1 + glow * 1.3));
+        g.beginPath(); g.arc(q.x, q.y, q.r * (1 + glow * 0.4), 0, 6.2832); g.fill();
+      }
+      req = requestAnimationFrame(frame);
+    }
+    function start() { on = true; if (!req) req = requestAnimationFrame(frame); }
+    function stop() { on = false; }
+    size();
+    if ('ResizeObserver' in window) new ResizeObserver(size).observe(hero); else window.addEventListener('resize', size);
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting && !doc.hidden) start(); else stop(); }); }).observe(hero);
+    } else start();
+    doc.addEventListener('visibilitychange', function () {
+      if (doc.hidden) { stop(); return; }
+      var r = hero.getBoundingClientRect(); if (r.bottom > 0 && r.top < window.innerHeight && doc.contains(c)) start();
+    });
+  }
+
+  // cards and covers lean toward the pointer (mouse and trackpad only)
+  var fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  function tilt(scope) {
+    if (reduce || !fine) return;
+    scope.querySelectorAll('.cards a, .cover-wrap, .cover').forEach(function (el) {
+      if (el.classList.contains('tilt') || (el.classList.contains('cover') && el.closest('.cover-wrap'))) return;
+      el.classList.add('tilt');
+      var deg = el.classList.contains('cover') || el.classList.contains('cover-wrap') ? 9 : 7;
+      el.addEventListener('pointermove', function (e) {
+        var r = el.getBoundingClientRect(); if (!r.width || !r.height) return;
+        var px = (e.clientX - r.left) / r.width - 0.5, py = (e.clientY - r.top) / r.height - 0.5;
+        el.style.transform = 'perspective(900px) rotateX(' + (-py * deg).toFixed(2) + 'deg) rotateY(' + (px * deg).toFixed(2) + 'deg) translateY(-3px)';
+        el.style.setProperty('--mx', (px * 100 + 50).toFixed(1) + '%'); el.style.setProperty('--my', (py * 100 + 50).toFixed(1) + '%');
+      });
+      el.addEventListener('pointerleave', function () { el.style.transform = ''; });
+    });
+  }
+
+  // a thin line along the top that fills as the page is read
+  if (!reduce) {
+    var prog = doc.createElement('div'); prog.className = 'progress'; prog.setAttribute('aria-hidden', 'true'); body.appendChild(prog);
+    var progQueued = false;
+    var paintProg = function () {
+      progQueued = false;
+      var h = root.scrollHeight - window.innerHeight;
+      prog.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, Math.max(0, window.scrollY / h)) : 0).toFixed(4) + ')';
+    };
+    window.addEventListener('scroll', function () { if (!progQueued) { progQueued = true; requestAnimationFrame(paintProg); } }, { passive: true });
+    window.addEventListener('resize', function () { if (!progQueued) { progQueued = true; requestAnimationFrame(paintProg); } });
+    paintProg();
+  }
   initMotion(doc);
 
   /* ---------------------------------------------------------------- soft navigation: the music keeps playing between pages */
@@ -104,6 +189,7 @@
           initMotion(fresh);
           var target = u.hash ? doc.getElementById(u.hash.slice(1)) : null;
           if (target) target.scrollIntoView({ block: 'start' }); else window.scrollTo(0, 0);
+          if (typeof paintProg === 'function') requestAnimationFrame(paintProg);
         };
         if (doc.startViewTransition && !reduce) doc.startViewTransition(swap); else swap();
       }).catch(function () { location.href = u.href; });
@@ -128,7 +214,6 @@
   var ss = window.sessionStorage, ls = window.localStorage;
   function get(store, k) { try { return store.getItem(k); } catch (e) { return null; } }
   function set(store, k, v) { try { store.setItem(k, v); } catch (e) {} }
-  if (get(ss, 'ps-off') === '1') return;          // closed the player this session
 
   var title = body.getAttribute('data-audio-title') || 'Hard to Break';
   var href = body.getAttribute('data-audio-href') || '/hard-to-break/';
@@ -142,7 +227,8 @@
     '<div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>' +
     '<button class="radio-btn play" type="button" aria-label="Play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>' +
     '<button class="radio-btn mute" type="button" aria-label="Mute" title="Mute (M)"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg></button>' +
-    '<button class="radio-x" type="button" aria-label="Close the player" title="Close">&times;</button>' +
+    '<button class="radio-x" type="button" aria-label="Hide the player" title="Hide">&times;</button>' +
+    '<button class="radio-pill" type="button" aria-label="Show the player" title="Hard to Break"><img src="' + art + '" alt=""><span class="pill-glyph">' + '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>' + '</span></button>' +
     '<div class="radio-bar" aria-hidden="true"><div class="radio-fill"></div></div>' +
     '<p class="radio-hint" aria-live="polite"></p>';
   body.appendChild(bar); body.classList.add('has-radio');
@@ -174,6 +260,7 @@
     playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
     bar.classList.toggle('playing', playing);
     if (playing) { bar.classList.remove('ready'); kicker.textContent = audio.muted ? 'Now playing, muted' : 'Now playing'; hint.textContent = ''; }
+    else if (!bar.classList.contains('ready')) { kicker.textContent = 'Paused'; }
   }
   paintMute();
 
@@ -196,30 +283,37 @@
     if (!analyser) return;
     analyser.getByteFrequencyData(data);
     var bass = 0; for (var i = 1; i < 6; i++) bass += data[i]; bass = bass / 5 / 255;
-    root.style.setProperty('--beat', (Math.max(0, bass - 0.45) / 0.55).toFixed(3));
+    beatNow = Math.max(0, bass - 0.45) / 0.55;
+    root.style.setProperty('--beat', beatNow.toFixed(3));
     for (var b = 0; b < eqBars.length; b++) {
       var s = 0, c = 0; for (var k = bands[b][0]; k < bands[b][1]; k++) { s += data[k]; c++; }
       eqBars[b].style.height = Math.max(12, (s / c / 255) * 100) + '%';
     }
     raf = requestAnimationFrame(tick);
   }
-  function startVis() { if (analyser) { cancelAnimationFrame(raf); raf = requestAnimationFrame(tick); } }
-  function stopVis() { cancelAnimationFrame(raf); root.style.setProperty('--beat', '0'); for (var b = 0; b < eqBars.length; b++) eqBars[b].style.height = ''; }
+  function startVis() { if (analyser) { body.classList.add('beat'); cancelAnimationFrame(raf); raf = requestAnimationFrame(tick); } }
+  function stopVis() { cancelAnimationFrame(raf); body.classList.remove('beat'); beatNow = 0; root.style.setProperty('--beat', '0'); for (var b = 0; b < eqBars.length; b++) eqBars[b].style.height = ''; }
 
-  var armed = false;
+  var armed = false, armGo = null;
+  function disarm() {
+    if (armGo) { doc.removeEventListener('pointerdown', armGo, true); doc.removeEventListener('keydown', armGo, true); armGo = null; }
+    armed = false;
+  }
   function arm() {
     // the browser wants a touch or a click first; the first one anywhere starts the song
     if (armed) return; armed = true;
     bar.classList.add('ready'); kicker.textContent = 'Tap anywhere to play';
     hint.textContent = 'Hard to Break starts on your first tap or click. Mute is the speaker.';
-    var go = function (e) {
+    armGo = function (e) {
       if (e && e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') return;
-      doc.removeEventListener('pointerdown', go, true); doc.removeEventListener('keydown', go, true);
+      if (e && e.target && e.target.closest && e.target.closest('.radio button')) return;   // the bar's own buttons speak for themselves
+      if (bar.classList.contains('collapsed')) return;
       play();
     };
-    doc.addEventListener('pointerdown', go, true); doc.addEventListener('keydown', go, true);
+    doc.addEventListener('pointerdown', armGo, true); doc.addEventListener('keydown', armGo, true);
   }
   function play() {
+    disarm();
     wireAnalyser();
     if (ctx && ctx.state === 'suspended') { ctx.resume(); }
     var p = audio.play();
@@ -228,10 +322,13 @@
     }
   }
   function pause() { audio.pause(); paintPlay(false); stopVis(); set(ss, 'ps-paused', '1'); }
+  function stopQuiet() { audio.pause(); paintPlay(false); stopVis(); }
 
   playBtn.addEventListener('click', function (e) { e.stopPropagation(); if (audio.paused) play(); else pause(); });
   muteBtn.addEventListener('click', function (e) { e.stopPropagation(); audio.muted = !audio.muted; set(ls, 'ps-muted', audio.muted ? '1' : '0'); paintMute(); if (!audio.paused) paintPlay(true); });
-  closeBtn.addEventListener('click', function (e) { e.stopPropagation(); audio.pause(); stopVis(); set(ss, 'ps-off', '1'); bar.remove(); body.classList.remove('has-radio'); });
+  var pill = bar.querySelector('.radio-pill');
+  closeBtn.addEventListener('click', function (e) { e.stopPropagation(); stopQuiet(); bar.classList.add('collapsed'); body.classList.remove('has-radio'); });
+  pill.addEventListener('click', function (e) { e.stopPropagation(); bar.classList.remove('collapsed'); body.classList.add('has-radio'); play(); });
   track.addEventListener('click', function (e) { var r = track.getBoundingClientRect(); if (audio.duration) audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration; });
   doc.addEventListener('keydown', function (e) {
     if (e.key === 'm' || e.key === 'M') { var t = e.target; if (t && /INPUT|TEXTAREA|SELECT/.test(t.tagName)) return; muteBtn.click(); }
