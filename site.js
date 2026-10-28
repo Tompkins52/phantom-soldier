@@ -208,6 +208,45 @@
     }, true);
   }
 
+  /* ---------------------------------------------------------------- one song at a time */
+  // Every Spotify embed reports what it is doing to this page. When one starts, every other
+  // embed is told to pause, and so is the site player. When the site player starts, the embeds pause.
+  var SPOT = 'https://open.spotify.com';
+  function spotFrames() { return doc.querySelectorAll('iframe[src*="open.spotify.com/embed"]'); }
+  function tellEmbed(f, command) { try { f.contentWindow.postMessage({ command: command }, SPOT); } catch (e) {} }
+  function pauseEmbeds(except) {
+    spotFrames().forEach(function (f) {
+      if (!f.contentWindow || f.contentWindow === except) return;
+      if (f.__psPlaying === false) return;                        // known to be paused already
+      tellEmbed(f, 'pause');
+      // only an embed we know is playing gets the follow-up check below
+      if (f.__psPlaying === true) { f.__psPauseAt = Date.now(); f.__psToggled = false; }
+    });
+  }
+  var onEmbedStart = null;                                          // the site player hooks in below
+  window.addEventListener('message', function (e) {
+    if (typeof e.origin !== 'string' || !/^https:\/\/([a-z0-9-]+\.)*spotify\.com$/.test(e.origin)) return;
+    var d = e.data; if (!d || typeof d !== 'object') return;
+    var playing;
+    if (d.type === 'playback_update' && d.payload) playing = d.payload.isPaused === false;
+    else if (d.type === 'playback_started') playing = true;
+    else return;
+    var frame = null, list = spotFrames();
+    for (var i = 0; i < list.length; i++) { if (list[i].contentWindow === e.source) { frame = list[i]; break; } }
+    if (!frame) return;
+    var was = frame.__psPlaying === true;
+    frame.__psPlaying = playing;
+    if (!playing) { frame.__psPauseAt = 0; return; }
+    var since = frame.__psPauseAt ? Date.now() - frame.__psPauseAt : -1;
+    if (since >= 0 && since < 3000) {
+      // told to pause moments ago and still reporting play: fall back to the toggle command, once
+      if (since > 400 && !frame.__psToggled) { frame.__psToggled = true; tellEmbed(frame, 'toggle'); }
+      return;
+    }
+    frame.__psPauseAt = 0;
+    if (!was) { pauseEmbeds(e.source); if (onEmbedStart) onEmbedStart(); }
+  });
+
   /* ---------------------------------------------------------------- the player */
   var src = body.getAttribute('data-audio');
   if (!src || !('Audio' in window)) return;
@@ -339,15 +378,12 @@
     set(ss, 'ps-t', audio.currentTime.toFixed(1));
   });
   audio.addEventListener('pause', function () { if (!bar.classList.contains('ready')) paintPlay(false); stopVis(); });
-  audio.addEventListener('play', function () { paintPlay(true); startVis(); });
+  audio.addEventListener('play', function () { paintPlay(true); startVis(); pauseEmbeds(null); });
   window.addEventListener('pagehide', function () { set(ss, 'ps-t', audio.currentTime.toFixed(1)); });
   audio.addEventListener('ended', function () { paintPlay(false); stopVis(); set(ss, 'ps-t', '0'); set(ss, 'ps-paused', '1'); kicker.textContent = 'Play it again?'; fill.style.width = '0'; });
 
-  // if a Spotify embed on the page starts, step aside
-  window.addEventListener('message', function (e) {
-    if (typeof e.origin !== 'string' || e.origin.indexOf('spotify.com') === -1) return;
-    var d = e.data; if (d && d.type === 'playback_update' && d.payload && d.payload.isPaused === false && !audio.paused) pause();
-  });
+  // when a Spotify embed starts, the site player steps aside
+  onEmbedStart = function () { if (!audio.paused) pause(); };
 
   if (wantPlay) { play(); } else { paintPlay(false); kicker.textContent = 'Paused'; }
 })();
