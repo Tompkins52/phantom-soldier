@@ -21,8 +21,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/song.css">
+<link rel="stylesheet" href="/motion.css">
 </head>
-<body>
+<body data-audio="/assets/audio/hard-to-break.mp3" data-audio-title="Hard to Break" data-audio-href="/hard-to-break/" data-audio-art="/art/hard-to-break.jpg">
 <a class="skip" href="#main">Skip to content</a>
 <!--
   Stories hub. Each song's story lives on the song's own page (/still-here/, /hard-to-break/, ...).
@@ -123,5 +124,6 @@
   f.addEventListener('submit',function(e){var s=f.querySelector('select');if(s&&s.value){e.preventDefault();location.href=s.value;}});
 })();
 </script>
+<script src="/site.js" defer></script>
 </body>
 </html>

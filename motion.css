@@ -1,0 +1,111 @@
+/* Motion and the site-wide player. Loaded on every page after site.css or song.css.
+   Everything here is additive: with JavaScript off, or with "reduce motion" on, the pages
+   look exactly as they did before. */
+
+/* ---------- page-to-page fade (browsers that support cross-document view transitions) ---------- */
+@view-transition { navigation: auto; }
+::view-transition-old(root){animation:ps-fade-out .16s ease both}
+::view-transition-new(root){animation:ps-fade-in .22s ease both}
+@keyframes ps-fade-out{to{opacity:0}}
+@keyframes ps-fade-in{from{opacity:0}}
+
+@media (prefers-reduced-motion:no-preference){
+
+  /* ---------- scroll reveals (classes are added by site.js only) ---------- */
+  .rv{opacity:0;transform:translateY(16px);transition:opacity .75s cubic-bezier(.2,.7,.2,1),transform .75s cubic-bezier(.2,.7,.2,1)}
+  .rv.in{opacity:1;transform:none}
+  .rv-1{transition-delay:.07s}.rv-2{transition-delay:.14s}.rv-3{transition-delay:.21s}.rv-4{transition-delay:.28s}.rv-5{transition-delay:.35s}.rv-6{transition-delay:.42s}
+
+  /* the pull quotes: the red bar grows down as the quote arrives */
+  .quote.rv{position:relative;border-left-color:transparent}
+  .quote.rv::before{content:"";position:absolute;left:-5px;top:0;width:5px;height:0;background:var(--red);transition:height .9s cubic-bezier(.2,.7,.2,1) .15s}
+  .quote.in::before{height:100%}
+
+  /* the drawing develops like a print */
+  .drawing.rv img{filter:blur(6px) contrast(.6) brightness(1.15);transition:filter 1.6s ease .2s}
+  .drawing.in img{filter:none}
+
+  /* ---------- hero: slow drift, film grain, a glow that follows the beat ---------- */
+  .hero{animation:ps-drift 36s ease-in-out infinite alternate}
+  @keyframes ps-drift{from{background-position:100% 0}to{background-position:92% 8%}}
+  @media (min-width:900px){
+    @keyframes ps-drift{from{background-position:82% 60%}to{background-position:76% 52%}}
+  }
+  .hero .pulse{position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 70% at 72% 45%,rgba(255,255,255,.55),rgba(255,255,255,0) 70%);opacity:calc(var(--beat,0) * .14);transition:opacity .08s linear;mix-blend-mode:screen}
+  .hero .inner > *{opacity:0;transform:translateY(14px);animation:ps-rise .8s cubic-bezier(.2,.7,.2,1) forwards}
+  .hero .inner > :nth-child(1){animation-delay:.05s}
+  .hero .inner > :nth-child(2){animation-delay:.18s}
+  .hero .inner > :nth-child(3){animation-delay:.3s}
+  .hero .inner > :nth-child(4){animation-delay:.42s}
+  .hero .inner > :nth-child(5){animation-delay:.54s}
+  .hero .inner > :nth-child(6){animation-delay:.66s}
+  @keyframes ps-rise{to{opacity:1;transform:none}}
+
+  .grain{position:absolute;inset:0;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    animation:ps-grain .9s steps(6) infinite}
+  @keyframes ps-grain{0%{transform:translate(0,0)}20%{transform:translate(-14px,9px)}40%{transform:translate(9px,-12px)}60%{transform:translate(-7px,-5px)}80%{transform:translate(12px,10px)}100%{transform:translate(0,0)}}
+  .band.navy,.quote-band{position:relative;overflow:hidden}
+  .band.navy > .grain{opacity:.05}
+
+  /* ---------- small things that answer the hand ---------- */
+  .btn{transition:transform .18s ease,background-color .18s ease,border-color .18s ease,box-shadow .18s ease}
+  .btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px -14px rgba(26,32,39,.6)}
+  .btn:active{transform:translateY(0)}
+  .cards a,.lines li,.code,.platforms a{transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}
+  .cards a:hover,.platforms a:hover{transform:translateY(-2px);box-shadow:0 14px 26px -18px rgba(26,32,39,.55)}
+  .cover{transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s ease}
+  .cover:hover{transform:translateY(-3px) scale(1.01);box-shadow:0 26px 48px -20px rgba(26,32,39,.55)}
+  .nav a{position:relative}
+  .nav a::after{content:"";position:absolute;left:0;right:100%;bottom:-4px;height:2px;background:var(--red);transition:right .22s ease}
+  .nav a:hover::after,.nav a.on::after{right:0}
+  .steps .n,.brief .n{display:inline-block;transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+  .steps li.in .n,.brief li.in .n{animation:ps-pop .55s cubic-bezier(.2,.7,.2,1)}
+  @keyframes ps-pop{0%{transform:scale(.6)}60%{transform:scale(1.12)}100%{transform:scale(1)}}
+}
+
+/* ---------- the player bar ---------- */
+.radio{position:fixed;left:50%;bottom:14px;transform:translate(-50%,0);z-index:60;width:min(680px,calc(100% - 20px));
+  display:grid;grid-template-columns:46px minmax(0,1fr) auto auto auto auto;gap:12px;align-items:center;
+  background:rgba(15,30,45,.94);color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:10px 12px 10px 10px;
+  box-shadow:0 18px 44px -18px rgba(0,0,0,.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-family:var(--sans)}
+.radio[hidden]{display:none}
+.radio-art{width:46px;height:46px;border-radius:8px;object-fit:cover;display:block}
+.radio-meta{min-width:0;display:flex;flex-direction:column;gap:2px}
+.radio-k{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#AEBBC8;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.radio-t{font-size:16px;font-weight:600;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.radio-t a{color:#fff;text-decoration:none}
+.radio-t a:hover{text-decoration:underline}
+.radio.ready .radio-k{color:#E0394A}
+.eq{display:flex;align-items:flex-end;gap:3px;height:22px;width:34px}
+.eq i{display:block;flex:1;background:#E0394A;border-radius:2px 2px 0 0;height:15%;transform-origin:bottom;transition:height .09s linear}
+.radio.playing.css-eq .eq i{animation:ps-eq .9s ease-in-out infinite alternate}
+.radio.playing.css-eq .eq i:nth-child(2){animation-duration:.7s;animation-delay:.1s}
+.radio.playing.css-eq .eq i:nth-child(3){animation-duration:1.1s;animation-delay:.2s}
+.radio.playing.css-eq .eq i:nth-child(4){animation-duration:.8s;animation-delay:.05s}
+.radio.playing.css-eq .eq i:nth-child(5){animation-duration:1s;animation-delay:.15s}
+@keyframes ps-eq{from{height:15%}to{height:100%}}
+.radio-btn{appearance:none;border:1.5px solid rgba(255,255,255,.22);background:transparent;color:#fff;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;cursor:pointer;padding:0}
+.radio-btn:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+.radio-btn svg{width:18px;height:18px;fill:currentColor}
+.radio-btn.play{background:var(--red);border-color:var(--red)}
+.radio-btn.play:hover{background:var(--red-hover)}
+.radio.ready .radio-btn.play{animation:ps-ring 1.6s ease-out infinite}
+@keyframes ps-ring{0%{box-shadow:0 0 0 0 rgba(224,57,74,.7)}100%{box-shadow:0 0 0 14px rgba(224,57,74,0)}}
+.radio-btn.muted{color:#AEBBC8}
+.radio-x{appearance:none;border:0;background:transparent;color:#AEBBC8;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:20px;line-height:1;padding:0}
+.radio-x:hover{color:#fff;background:rgba(255,255,255,.08)}
+.radio-bar{grid-column:1 / -1;height:3px;background:rgba(255,255,255,.14);border-radius:2px;overflow:hidden;cursor:pointer;margin-top:2px}
+.radio-fill{height:100%;width:0;background:#E0394A;border-radius:2px}
+.radio-hint{grid-column:1 / -1;font-size:13px;color:#AEBBC8;margin:0;line-height:1.3}
+.radio-hint:empty{display:none}
+body.has-radio{padding-bottom:96px}
+@media (max-width:480px){
+  .radio{grid-template-columns:40px minmax(0,1fr) auto auto auto;gap:8px;padding:8px 8px 8px 8px}
+  .radio .eq{display:none}
+  .radio-art{width:40px;height:40px}
+  .radio-t{font-size:14.5px}
+  .eq{display:none}
+  .radio-btn{width:38px;height:38px}
+}
+@media print{.radio{display:none!important}}
