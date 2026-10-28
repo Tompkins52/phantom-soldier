@@ -296,7 +296,7 @@
 
   var armed = false, armGo = null;
   function disarm() {
-    if (armGo) { doc.removeEventListener('pointerdown', armGo, true); doc.removeEventListener('keydown', armGo, true); armGo = null; }
+    if (armGo) { doc.removeEventListener('pointerup', armGo, true); doc.removeEventListener('keydown', armGo, true); armGo = null; }
     armed = false;
   }
   function arm() {
@@ -310,7 +310,8 @@
       if (bar.classList.contains('collapsed')) return;
       play();
     };
-    doc.addEventListener('pointerdown', armGo, true); doc.addEventListener('keydown', armGo, true);
+    // pointerup, not pointerdown: a touch only counts as a gesture once the finger lifts, and a scroll never lifts cleanly
+    doc.addEventListener('pointerup', armGo, true); doc.addEventListener('keydown', armGo, true);
   }
   function play() {
     disarm();
