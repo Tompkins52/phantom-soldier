@@ -254,9 +254,9 @@
   function get(store, k) { try { return store.getItem(k); } catch (e) { return null; } }
   function set(store, k, v) { try { store.setItem(k, v); } catch (e) {} }
 
-  var title = body.getAttribute('data-audio-title') || 'Hard to Break';
-  var href = body.getAttribute('data-audio-href') || '/hard-to-break/';
-  var art = body.getAttribute('data-audio-art') || '/art/hard-to-break.jpg';
+  var title = body.getAttribute('data-audio-title') || 'I Want to Want';
+  var href = body.getAttribute('data-audio-href') || '/i-want-to-want/';
+  var art = body.getAttribute('data-audio-art') || '/art/i-want-to-want.jpg';
 
   var bar = doc.createElement('div');
   bar.className = 'radio css-eq'; bar.id = 'radio'; bar.setAttribute('role', 'region'); bar.setAttribute('aria-label', 'Now playing');
@@ -267,7 +267,7 @@
     '<button class="radio-btn play" type="button" aria-label="Play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>' +
     '<button class="radio-btn mute" type="button" aria-label="Mute" title="Mute (M)"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg></button>' +
     '<button class="radio-x" type="button" aria-label="Hide the player" title="Hide">&times;</button>' +
-    '<button class="radio-pill" type="button" aria-label="Show the player" title="Hard to Break"><img src="' + art + '" alt=""><span class="pill-glyph">' + '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>' + '</span></button>' +
+    '<button class="radio-pill" type="button" aria-label="Show the player" title="' + title + '"><img src="' + art + '" alt=""><span class="pill-glyph">' + '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>' + '</span></button>' +
     '<div class="radio-bar" aria-hidden="true"><div class="radio-fill"></div></div>' +
     '<p class="radio-hint" aria-live="polite"></p>';
   body.appendChild(bar); body.classList.add('has-radio');
@@ -284,8 +284,9 @@
   audio.preload = 'auto'; audio.loop = false;
   audio.muted = get(ls, 'ps-muted') === '1';
   var wantPlay = get(ss, 'ps-paused') !== '1';        // paused by the visitor on an earlier page
-  var t0 = parseFloat(get(ss, 'ps-t') || '0');
-  function seek0() { if (t0 > 0 && t0 < 230 && audio.currentTime < 1) { try { audio.currentTime = t0; } catch (e) {} } }
+  var tKey = 'ps-t:' + src;
+  var t0 = parseFloat(get(ss, tKey) || '0');
+  function seek0() { if (t0 > 0 && (!audio.duration || t0 < audio.duration - 2) && audio.currentTime < 1) { try { audio.currentTime = t0; } catch (e) {} } }
   seek0(); audio.addEventListener('loadedmetadata', seek0);
 
   function paintMute() {
@@ -342,7 +343,7 @@
     // the browser wants a touch or a click first; the first one anywhere starts the song
     if (armed) return; armed = true;
     bar.classList.add('ready'); kicker.textContent = 'Tap anywhere to play';
-    hint.textContent = 'Hard to Break starts on your first tap or click. Mute is the speaker.';
+    hint.textContent = title + ' starts on your first tap or click. Mute is the speaker.';
     armGo = function (e) {
       if (e && e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') return;
       if (e && e.target && e.target.closest && e.target.closest('.radio button')) return;   // the bar's own buttons speak for themselves
@@ -375,12 +376,12 @@
   });
   audio.addEventListener('timeupdate', function () {
     if (audio.duration) fill.style.width = (audio.currentTime / audio.duration * 100) + '%';
-    set(ss, 'ps-t', audio.currentTime.toFixed(1));
+    set(ss, tKey, audio.currentTime.toFixed(1));
   });
   audio.addEventListener('pause', function () { if (!bar.classList.contains('ready')) paintPlay(false); stopVis(); });
   audio.addEventListener('play', function () { paintPlay(true); startVis(); pauseEmbeds(null); });
-  window.addEventListener('pagehide', function () { set(ss, 'ps-t', audio.currentTime.toFixed(1)); });
-  audio.addEventListener('ended', function () { paintPlay(false); stopVis(); set(ss, 'ps-t', '0'); set(ss, 'ps-paused', '1'); kicker.textContent = 'Play it again?'; fill.style.width = '0'; });
+  window.addEventListener('pagehide', function () { set(ss, tKey, audio.currentTime.toFixed(1)); });
+  audio.addEventListener('ended', function () { paintPlay(false); stopVis(); set(ss, tKey, '0'); set(ss, 'ps-paused', '1'); kicker.textContent = 'Play it again?'; fill.style.width = '0'; });
 
   // when a Spotify embed starts, the site player steps aside
   onEmbedStart = function () { if (!audio.paused) pause(); };
